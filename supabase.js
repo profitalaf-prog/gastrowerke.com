@@ -59,12 +59,21 @@ async function registerUser(name, email, password) {
       return { ok: false, msg: error.message };
     }
     if (data.user) {
-      await sb.from('profiles').upsert({
-        id: data.user.id,
-        name,
-        email,
-        created_at: new Date().toISOString()
-      });
+      // Profil manuell anlegen (falls kein Trigger existiert)
+      try {
+        await sb.from('profiles').upsert({
+          id: data.user.id,
+          name,
+          email,
+          created_at: new Date().toISOString()
+        });
+      } catch (e) {
+        console.warn('Profil konnte nicht erstellt werden (evtl. fehlende Tabelle):', e);
+      }
+    }
+    // Hinweis auf E-Mail-Bestätigung, falls aktiviert
+    if (data.user && data.user.confirmed_at === null) {
+      return { ok: true, msg: 'Bitte bestätigen Sie Ihre E-Mail-Adresse, bevor Sie sich anmelden.' };
     }
     return { ok: true, user: data.user };
   }
