@@ -1,14 +1,7 @@
 /**
  * gastrowerke – layout.js
  * Gemeinsamer Header + Footer HTML-Snippet für alle statischen Seiten.
- * Wird per insertAdjacentHTML in jede Seite eingefügt, sodass
- * Header, Navigation, Drawer und Cart-Sidebar überall identisch sind.
- *
- * Einbindung in HTML:
- *   <div id="gw-header-root"></div>
- *   <div id="gw-footer-root"></div>
- *   <script src="layout.js"></script>
- *   <script src="pages-common.js"></script>
+ * Wird per insertAdjacentHTML in jede Seite eingefügt.
  */
 
 'use strict';
