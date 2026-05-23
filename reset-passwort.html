@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Passwort zurücksetzen – gastrowerke">
+<title>Passwort vergessen – gastrowerke</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+.error-banner{display:none;background:#fde8e8;border:1px solid #e63946;border-radius:var(--radius);padding:12px 16px;font-size:13px;color:#c0392b;margin-bottom:16px;border-left:4px solid #e63946}
+.success-banner{display:none;background:#d4f5ec;border:1px solid #2a9d8f;border-radius:var(--radius);padding:12px 16px;font-size:13px;color:#1a6b56;margin-bottom:16px}
+</style>
+</head>
+<body>
+<div id="gw-header-root"></div>
+<div class="container" style="max-width:500px; margin:80px auto; padding:0 20px">
+  <div class="login-card" style="padding:32px">
+    <div class="login-panel-title">Passwort zurücksetzen</div>
+    <p class="login-panel-sub">Wir senden Ihnen einen Link zum Neusetzen Ihres Passworts.</p>
+    <div id="resetError" class="error-banner"></div>
+    <div id="resetSuccess" class="success-banner"></div>
+    <form id="resetForm">
+      <div class="form-group">
+        <label for="resetEmail">E-Mail-Adresse <span class="req">*</span></label>
+        <input type="email" id="resetEmail" class="form-control" required>
+      </div>
+      <button type="submit" class="btn-primary" style="width:100%;">Link anfordern</button>
+    </form>
+    <div class="login-switch" style="margin-top:20px">
+      <a href="login.html">Zurück zur Anmeldung</a>
+    </div>
+  </div>
+</div>
+<div id="gw-footer-root"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="supabase.js"></script>
+<script src="layout.js"></script>
+<script src="pages-common.js"></script>
+<script>
+document.getElementById('resetForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const email = document.getElementById('resetEmail').value.trim();
+  const sb = window.gwAuth.getSupabase();
+  if (!sb) {
+    document.getElementById('resetError').textContent = 'Supabase nicht verfügbar.';
+    document.getElementById('resetError').style.display = 'block';
+    return;
+  }
+  const { error } = await sb.auth.resetPasswordForEmail(email, {
+    redirectTo: window.location.origin + '/update-password.html'
+  });
+  if (error) {
+    document.getElementById('resetError').textContent = error.message;
+    document.getElementById('resetError').style.display = 'block';
+  } else {
+    document.getElementById('resetSuccess').textContent = 'Link wurde gesendet. Bitte prüfen Sie Ihr E-Mail-Postfach.';
+    document.getElementById('resetSuccess').style.display = 'block';
+    document.getElementById('resetForm').reset();
+  }
+});
+</script>
+</body>
+</html>
