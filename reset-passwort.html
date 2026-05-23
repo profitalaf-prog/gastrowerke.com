@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Passwort zurücksetzen – gastrowerke">
-<title>Passwort vergessen – gastrowerke</title>
+<title>Passwort zurücksetzen – gastrowerke</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
@@ -27,7 +26,9 @@
         <label for="resetEmail">E-Mail-Adresse <span class="req">*</span></label>
         <input type="email" id="resetEmail" class="form-control" required>
       </div>
-      <button type="submit" class="btn-primary" style="width:100%;">Link anfordern</button>
+      <button type="submit" class="btn-primary" style="width:100%;justify-content:center;padding:14px" id="resetBtn">
+        Link anfordern
+      </button>
     </form>
     <div class="login-switch" style="margin-top:20px">
       <a href="login.html">Zurück zur Anmeldung</a>
@@ -49,16 +50,25 @@ document.getElementById('resetForm').addEventListener('submit', async (e) => {
     document.getElementById('resetError').style.display = 'block';
     return;
   }
+  const btn = document.getElementById('resetBtn');
+  const orig = btn.innerHTML;
+  btn.innerHTML = '⏳ Wird gesendet …';
+  btn.disabled = true;
+
   const { error } = await sb.auth.resetPasswordForEmail(email, {
     redirectTo: window.location.origin + '/update-password.html'
   });
   if (error) {
     document.getElementById('resetError').textContent = error.message;
     document.getElementById('resetError').style.display = 'block';
+    btn.innerHTML = orig;
+    btn.disabled = false;
   } else {
-    document.getElementById('resetSuccess').textContent = 'Link wurde gesendet. Bitte prüfen Sie Ihr E-Mail-Postfach.';
+    document.getElementById('resetSuccess').textContent = 'Link wurde gesendet. Bitte prüfen Sie Ihr E-Mail-Postfach (auch Spam-Ordner).';
     document.getElementById('resetSuccess').style.display = 'block';
     document.getElementById('resetForm').reset();
+    btn.innerHTML = orig;
+    btn.disabled = false;
   }
 });
 </script>
