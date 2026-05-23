@@ -5,10 +5,12 @@
 
 'use strict';
 
-const SUPABASE_URL = 'https://dbsxihqtibyejprbsvvr.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_X9tkqIKochA3AuF71HM-Hg_H--0FZsi';
+// ===== HIER IHRE EIGENEN CREDENTIALS EINTRAGEN =====
+const SUPABASE_URL = 'https://DEINPROJEKT.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGci...DEIN_ANON_KEY...';
+// ===================================================
 
-const SUPABASE_CONFIGURED = SUPABASE_URL !== 'DEINE_SUPABASE_URL' && SUPABASE_ANON_KEY !== 'DEIN_SUPABASE_ANON_KEY';
+const SUPABASE_CONFIGURED = SUPABASE_URL !== 'https://DEINPROJEKT.supabase.co' && SUPABASE_ANON_KEY !== 'eyJhbGci...DEIN_ANON_KEY...';
 
 let supabase = null;
 
@@ -49,7 +51,6 @@ async function registerUser(name, email, password) {
       return { ok: false, msg: error.message };
     }
     if (data.user) {
-      // Profil anlegen (falls Tabelle existiert)
       try {
         await sb.from('profiles').upsert({
           id: data.user.id,
@@ -61,12 +62,9 @@ async function registerUser(name, email, password) {
       } catch (e) {
         console.warn('Profil-Tabelle nicht vorhanden oder Fehler:', e);
       }
-
-      // Automatisch anmelden, falls E-Mail-Bestätigung deaktiviert ist
       if (data.user.confirmed_at) {
         return { ok: true, user: data.user };
       } else {
-        // E-Mail-Bestätigung ist aktiv – Benutzer muss bestätigen
         return { ok: true, msg: 'Bitte bestätigen Sie Ihre E-Mail-Adresse vor der ersten Anmeldung.' };
       }
     }
@@ -192,10 +190,29 @@ async function saveOrderToUser(order) {
   if (sb) {
     const { data: { user } } = await sb.auth.getUser();
     if (!user) return;
-    await sb.from('orders').insert({ user_id: user.id, order_number: order.orderNumber, items: order.items, total: order.total, shipping_address: order.shippingAddress || order.address, billing_address: order.billingAddress, payment_method: order.paymentMethod, status: order.status || 'pending', created_at: new Date().toISOString() });
+    await sb.from('orders').insert({
+      user_id: user.id,
+      order_number: order.orderNumber,
+      items: order.items,
+      total: order.total,
+      shipping_address: order.shippingAddress || order.address,
+      billing_address: order.billingAddress,
+      payment_method: order.paymentMethod,
+      status: order.status || 'pending',
+      created_at: new Date().toISOString()
+    });
     return;
   }
-  // Fallback ...
+  // Fallback – speichern im localStorage user
+  const cur = _getLocalUser();
+  if (!cur) return;
+  const users = _getLocalUsers();
+  const user = users.find(u => u.id === cur.id);
+  if (user) {
+    if (!user.orders) user.orders = [];
+    user.orders.unshift(order);
+    _saveLocalUsers(users);
+  }
 }
 
 async function addAddress(address) {
@@ -206,7 +223,18 @@ async function addAddress(address) {
     const { error } = await sb.from('addresses').insert({ user_id: user.id, ...address, created_at: new Date().toISOString() });
     return !error;
   }
-  // Fallback ...
+  // Fallback
+  const cur = _getLocalUser();
+  if (!cur) return false;
+  const users = _getLocalUsers();
+  const user = users.find(u => u.id === cur.id);
+  if (user) {
+    if (!user.addresses) user.addresses = [];
+    user.addresses.push(address);
+    _saveLocalUsers(users);
+    return true;
+  }
+  return false;
 }
 
 async function deleteAddress(id) {
@@ -215,7 +243,17 @@ async function deleteAddress(id) {
     const { error } = await sb.from('addresses').delete().eq('id', id);
     return !error;
   }
-  // Fallback ...
+  // Fallback
+  const cur = _getLocalUser();
+  if (!cur) return false;
+  const users = _getLocalUsers();
+  const user = users.find(u => u.id === cur.id);
+  if (user && user.addresses) {
+    user.addresses = user.addresses.filter((_, i) => i !== id);
+    _saveLocalUsers(users);
+    return true;
+  }
+  return false;
 }
 
 async function requireLogin() {
