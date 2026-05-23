@@ -166,7 +166,6 @@ function updateWishBadge(){
 
 /* ── Auth ─────────────────────────────────────────────────────── */
 function getCurrentUser(){
-  // Versuche zuerst gwAuth (Supabase), dann Fallback
   if(window.gwAuth && typeof window.gwAuth.getCurrentUser === 'function'){
     return window.gwAuth.getCurrentUser();
   }
@@ -185,11 +184,11 @@ function updateAuthLinks(){
 function logoutUser(){
   if(window.gwAuth && typeof window.gwAuth.logoutUser === 'function'){
     window.gwAuth.logoutUser();
-    return;
+  } else {
+    localStorage.removeItem('gw_current_user');
+    showToast('Erfolgreich abgemeldet.');
+    setTimeout(()=>window.location.href='index.html',800);
   }
-  localStorage.removeItem('gw_current_user');
-  showToast('Erfolgreich abgemeldet.');
-  setTimeout(()=>window.location.href='index.html',800);
 }
 
 /* ── Drawer ───────────────────────────────────────────────────── */
