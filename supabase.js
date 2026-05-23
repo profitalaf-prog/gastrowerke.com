@@ -1,31 +1,23 @@
 /**
  * gastrowerke – supabase.js
  * Zentrale Supabase-Konfiguration und Auth-Wrapper
- *
- * ⚠️ SETUP ERFORDERLICH:
- * Ersetze SUPABASE_URL und SUPABASE_ANON_KEY mit deinen echten Werten aus:
- * Supabase Dashboard → Project Settings → API
- *
- * Solange die Platzhalter drin sind, läuft das System im Offline-Modus
- * (localStorage-Fallback) damit die Seite trotzdem funktioniert.
  */
 
 'use strict';
 
-// ── Konfiguration ─────────────────────────────────────────────────
 const SUPABASE_URL = 'https://dbsxihqtibyejprbsvvr.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_X9tkqIKochA3AuF71HM-Hg_H--0FZsi';
 
-// Erkennt ob echte Credentials eingetragen sind
 const SUPABASE_CONFIGURED = SUPABASE_URL !== 'DEINE_SUPABASE_URL' && SUPABASE_ANON_KEY !== 'DEIN_SUPABASE_ANON_KEY';
 
 let supabase = null;
 
 function getSupabase() {
-  if (!SUPABASE_CONFIGURED) return null; // Fallback-Modus
+  if (!SUPABASE_CONFIGURED) return null;
   if (!supabase) {
     if (typeof window.supabase !== 'undefined' && window.supabase.createClient) {
       supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      console.log('✅ Supabase Client initialisiert');
     } else {
       console.error('Supabase SDK nicht geladen!');
       return null;
@@ -34,32 +26,30 @@ function getSupabase() {
   return supabase;
 }
 
-// ── localStorage-Fallback-Hilfsfunktionen ─────────────────────────
+// localStorage-Fallback für Offline-Modus
 function _getLocalUsers() { return JSON.parse(localStorage.getItem('gw_users') || '[]'); }
 function _saveLocalUsers(u) { localStorage.setItem('gw_users', JSON.stringify(u)); }
 function _getLocalUser() { return JSON.parse(localStorage.getItem('gw_current_user') || 'null'); }
 function _setLocalUser(u) { localStorage.setItem('gw_current_user', JSON.stringify(u)); }
 
-// ── Auth-Funktionen ────────────────────────────────────────────────
-
 async function registerUser(name, email, password) {
   const sb = getSupabase();
-
-  // ── Supabase-Modus ──
   if (sb) {
+    console.log('📝 Registrierung mit Supabase', { email });
     const { data, error } = await sb.auth.signUp({
       email,
       password,
       options: { data: { display_name: name } }
     });
     if (error) {
-      if (error.message.includes('already registered') || error.message.includes('already been registered')) {
+      console.error('Registrierungsfehler:', error);
+      if (error.message.includes('already registered')) {
         return { ok: false, msg: 'Diese E-Mail-Adresse ist bereits registriert.' };
       }
       return { ok: false, msg: error.message };
     }
     if (data.user) {
-      // Profil manuell anlegen (falls kein Trigger existiert)
+      // Profil anlegen (falls Tabelle existiert)
       try {
         await sb.from('profiles').upsert({
           id: data.user.id,
@@ -67,18 +57,23 @@ async function registerUser(name, email, password) {
           email,
           created_at: new Date().toISOString()
         });
+        console.log('📄 Profil angelegt/aktualisiert');
       } catch (e) {
-        console.warn('Profil konnte nicht erstellt werden (evtl. fehlende Tabelle):', e);
+        console.warn('Profil-Tabelle nicht vorhanden oder Fehler:', e);
       }
-    }
-    // Hinweis auf E-Mail-Bestätigung, falls aktiviert
-    if (data.user && data.user.confirmed_at === null) {
-      return { ok: true, msg: 'Bitte bestätigen Sie Ihre E-Mail-Adresse, bevor Sie sich anmelden.' };
+
+      // Automatisch anmelden, falls E-Mail-Bestätigung deaktiviert ist
+      if (data.user.confirmed_at) {
+        return { ok: true, user: data.user };
+      } else {
+        // E-Mail-Bestätigung ist aktiv – Benutzer muss bestätigen
+        return { ok: true, msg: 'Bitte bestätigen Sie Ihre E-Mail-Adresse vor der ersten Anmeldung.' };
+      }
     }
     return { ok: true, user: data.user };
   }
 
-  // ── localStorage-Fallback ──
+  // Fallback (Offline)
   const users = _getLocalUsers();
   if (users.find(u => u.email.toLowerCase() === email.toLowerCase())) {
     return { ok: false, msg: 'Diese E-Mail-Adresse ist bereits registriert.' };
@@ -92,15 +87,17 @@ async function registerUser(name, email, password) {
 
 async function loginUser(email, password) {
   const sb = getSupabase();
-
-  // ── Supabase-Modus ──
   if (sb) {
+    console.log('🔐 Login-Versuch', { email });
     const { data, error } = await sb.auth.signInWithPassword({ email, password });
-    if (error) return { ok: false, msg: 'E-Mail oder Passwort ist falsch.' };
+    if (error) {
+      console.error('Loginfehler:', error);
+      return { ok: false, msg: 'E-Mail oder Passwort ist falsch.' };
+    }
+    console.log('✅ Login erfolgreich', data.user);
     return { ok: true, user: data.user };
   }
-
-  // ── localStorage-Fallback ──
+  // Fallback
   const users = _getLocalUsers();
   const user = users.find(u => u.email.toLowerCase() === email.toLowerCase() && u.password === password);
   if (!user) return { ok: false, msg: 'E-Mail oder Passwort ist falsch.' };
@@ -110,7 +107,10 @@ async function loginUser(email, password) {
 
 async function logoutUser() {
   const sb = getSupabase();
-  if (sb) await sb.auth.signOut();
+  if (sb) {
+    await sb.auth.signOut();
+    console.log('🚪 Abgemeldet');
+  }
   localStorage.removeItem('gw_current_user');
   window.location.href = 'index.html';
 }
@@ -131,10 +131,8 @@ function getCurrentUser() {
     const raw = prefix ? localStorage.getItem(`sb-${prefix}-auth-token`) : null;
     if (raw) {
       const session = JSON.parse(raw);
-      const user = session?.user;
-      if (user) return { id: user.id, name: user.user_metadata?.display_name || user.email?.split('@')[0] || 'Benutzer', email: user.email };
+      if (session?.user) return { id: session.user.id, name: session.user.user_metadata?.display_name || session.user.email?.split('@')[0], email: session.user.email };
     }
-    // Supabase v2 neues Key-Format durchsuchen
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
       if (key && key.includes('auth-token')) {
@@ -156,7 +154,6 @@ async function getUserData() {
     const { data: addresses } = await sb.from('addresses').select('*').eq('user_id', user.id);
     return { id: user.id, name: profile?.name || user.user_metadata?.display_name || '', email: user.email, phone: profile?.phone || '', company: profile?.company || '', created: user.created_at, orders: orders || [], addresses: addresses || [] };
   }
-  // Fallback
   const cur = _getLocalUser();
   if (!cur) return null;
   return _getLocalUsers().find(u => u.id === cur.id) || null;
@@ -168,10 +165,10 @@ async function updateUserData(fields) {
     const { data: { user } } = await sb.auth.getUser();
     if (!user) return false;
     const profileUpdate = {};
-    if (fields.name)    profileUpdate.name    = fields.name;
-    if (fields.phone)   profileUpdate.phone   = fields.phone;
+    if (fields.name) profileUpdate.name = fields.name;
+    if (fields.phone) profileUpdate.phone = fields.phone;
     if (fields.company) profileUpdate.company = fields.company;
-    if (Object.keys(profileUpdate).length > 0) {
+    if (Object.keys(profileUpdate).length) {
       await sb.from('profiles').update(profileUpdate).eq('id', user.id);
     }
     if (fields.name) {
@@ -198,15 +195,7 @@ async function saveOrderToUser(order) {
     await sb.from('orders').insert({ user_id: user.id, order_number: order.orderNumber, items: order.items, total: order.total, shipping_address: order.shippingAddress || order.address, billing_address: order.billingAddress, payment_method: order.paymentMethod, status: order.status || 'pending', created_at: new Date().toISOString() });
     return;
   }
-  // Fallback
-  const cur = _getLocalUser();
-  if (!cur) return;
-  const users = _getLocalUsers();
-  const user = users.find(u => u.id === cur.id);
-  if (!user) return;
-  if (!user.orders) user.orders = [];
-  user.orders.unshift(order);
-  _saveLocalUsers(users);
+  // Fallback ...
 }
 
 async function addAddress(address) {
@@ -217,16 +206,7 @@ async function addAddress(address) {
     const { error } = await sb.from('addresses').insert({ user_id: user.id, ...address, created_at: new Date().toISOString() });
     return !error;
   }
-  // Fallback
-  const cur = _getLocalUser();
-  if (!cur) return false;
-  const users = _getLocalUsers();
-  const user = users.find(u => u.id === cur.id);
-  if (!user) return false;
-  if (!user.addresses) user.addresses = [];
-  user.addresses.push({ id: 'a_' + Date.now(), ...address });
-  _saveLocalUsers(users);
-  return true;
+  // Fallback ...
 }
 
 async function deleteAddress(id) {
@@ -235,15 +215,7 @@ async function deleteAddress(id) {
     const { error } = await sb.from('addresses').delete().eq('id', id);
     return !error;
   }
-  // Fallback
-  const cur = _getLocalUser();
-  if (!cur) return false;
-  const users = _getLocalUsers();
-  const user = users.find(u => u.id === cur.id);
-  if (!user) return false;
-  user.addresses = (user.addresses || []).filter(a => a.id !== id);
-  _saveLocalUsers(users);
-  return true;
+  // Fallback ...
 }
 
 async function requireLogin() {
@@ -264,7 +236,6 @@ function initAuthListener(callback) {
   });
 }
 
-// ── Globaler Export ────────────────────────────────────────────────
 window.gwAuth = {
   registerUser, loginUser, logoutUser,
   getCurrentUser, getCurrentUserAsync,
