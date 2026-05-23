@@ -76,6 +76,9 @@
             </div>
             <span class="form-error"></span>
           </div>
+          <div style="text-align:right; margin-top:-10px; margin-bottom:16px">
+            <a href="reset-password.html" style="font-size:12px; color:var(--accent);">Passwort vergessen?</a>
+          </div>
           <div class="form-check" style="margin-bottom:20px">
             <input type="checkbox" id="loginRemember">
             <label for="loginRemember">Angemeldet bleiben</label>
@@ -155,7 +158,7 @@
     </div>
 
     <div style="text-align:center;margin-top:20px;font-size:12px;color:var(--text-muted)">
-      🔒 Ihre Daten sind SSL-verschlüsselt und werden nur lokal gespeichert.
+      🔒 Ihre Daten sind SSL-verschlüsselt.
     </div>
   </div>
 </div>
@@ -211,7 +214,6 @@ function setError(form,id,msg){
 }
 function validateEmail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);}
 
-/* ── Auth (Supabase) ─────────────────────────────────── */
 function getRedirectUrl(){
   const p=new URLSearchParams(location.search).get('redirect');
   if(p&&(p.startsWith(location.origin)||!p.startsWith('http')))return p;
@@ -284,7 +286,11 @@ document.getElementById('regForm').addEventListener('submit', async e=>{
     errBanner.style.display='block';
     return;
   }
-  okBanner.textContent='✓ Konto erfolgreich erstellt! Sie werden weitergeleitet …';
+  if(result.msg) {
+    okBanner.textContent = result.msg;
+  } else {
+    okBanner.textContent = '✓ Konto erfolgreich erstellt! Sie werden weitergeleitet …';
+  }
   okBanner.style.display='block';
   form.style.display='none';
   setTimeout(()=>window.location.href='konto.html', 1500);
@@ -292,12 +298,10 @@ document.getElementById('regForm').addEventListener('submit', async e=>{
 
 /* Bereits eingeloggt → weiterleiten */
 document.addEventListener('DOMContentLoaded', async ()=>{
-  // Warten bis Supabase bereit
   await new Promise(r=>setTimeout(r,200));
   const user = await window.gwAuth.getCurrentUserAsync();
   if(user) window.location.href='konto.html';
 
-  // Tab via URL-Parameter
   const t=new URLSearchParams(location.search).get('tab');
   if(t==='register')switchTab('reg');
 });
