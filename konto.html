@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<title>Mein Konto – gastrowerke</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#1a2c3e;--primary-dark:#111e2b;
+  --accent:#2a8dc4;--accent-light:#5ab0e0;--accent-pale:#daeef8;--accent-deep:#1b6fa0;
+  --steel:#7aa3bb;--steel-light:#c0d8e8;
+  --bg:#f0f6fb;--white:#ffffff;
+  --text:#1e3044;--text-mid:#3a5570;--text-muted:#5a7a91;
+  --border:#cde0ee;--border-light:#e4f0f8;
+  --radius-sm:4px;--radius:8px;--radius-lg:14px;--radius-xl:22px;
+  --shadow-xs:0 1px 4px rgba(26,44,62,.07);--shadow-sm:0 2px 10px rgba(26,44,62,.09);
+  --shadow:0 4px 20px rgba(26,44,62,.11);--shadow-md:0 8px 32px rgba(26,44,62,.14);
+  --trans-fast:.15s ease;--trans:.25s ease;
+  --header-h:72px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.65;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+ul{list-style:none}
+.container{max-width:1320px;margin:0 auto;padding:0 20px}
+
+/* TOPBAR */
+.topbar{background:var(--primary-dark);color:var(--steel-light);font-size:12px;padding:7px 0}
+.topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.topbar-left{display:flex;align-items:center;gap:6px;color:var(--steel)}
+.topbar-right{display:flex;align-items:center;gap:20px}
+.topbar-right a{color:var(--steel-light);transition:color var(--trans-fast);display:flex;align-items:center;gap:5px}
+.topbar-right a:hover{color:var(--accent-light)}
+
+/* HEADER */
+header{background:var(--white);position:sticky;top:0;z-index:200;border-bottom:1px solid var(--border-light);box-shadow:var(--shadow-sm)}
+.header-inner{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:20px;height:var(--header-h);padding:0 20px}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:.06em;color:var(--primary);white-space:nowrap}
+.logo em{color:var(--accent);font-style:normal}
+.search-form{display:flex;align-items:center;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--radius-xl);overflow:hidden}
+.search-form input{flex:1;border:none;background:transparent;padding:11px 18px;font-size:14px;font-family:inherit;color:var(--text);outline:none;min-width:0}
+.search-form button{background:var(--accent);border:none;color:white;padding:11px 20px;font-size:16px}
+.header-actions{display:flex;align-items:center;gap:8px}
+.hdr-btn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 12px;border:none;background:transparent;color:var(--text-mid);font-size:11px;font-weight:500;border-radius:var(--radius)}
+.hdr-btn .icon{font-size:20px}
+.hdr-btn:hover{background:var(--accent-pale);color:var(--accent-deep)}
+.hdr-btn-cart{background:var(--accent);color:white;padding:10px 18px;border-radius:var(--radius-xl);flex-direction:row;gap:8px;font-size:13px;font-weight:600;position:relative}
+.hdr-btn-cart:hover{background:var(--accent-deep)}
+.cart-badge{position:absolute;top:-4px;right:-4px;background:#e63946;color:white;font-size:10px;font-weight:700;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid var(--white)}
+.mobile-toggle{display:none;background:none;border:none;color:var(--primary);font-size:24px;padding:8px}
+
+/* NAV */
+.main-nav{background:var(--primary);position:relative;z-index:190}
+.nav-inner{display:flex;align-items:center;overflow-x:auto;scrollbar-width:none}
+.nav-inner::-webkit-scrollbar{display:none}
+.nav-link{display:flex;align-items:center;gap:5px;padding:14px 17px;color:rgba(255,255,255,.8);font-size:13px;font-weight:500;white-space:nowrap;transition:background var(--trans-fast),color var(--trans-fast);border-bottom:2px solid transparent}
+.nav-link:hover,.nav-link.active{background:rgba(255,255,255,.06);color:var(--accent-light);border-bottom-color:var(--accent)}
+
+/* PAGE HERO */
+.page-hero{background:linear-gradient(135deg,var(--primary-dark) 0%,var(--primary) 100%);padding:36px 0 40px}
+.page-hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,4vw,48px);color:white;letter-spacing:.04em;margin-bottom:6px}
+.page-hero-title em{color:var(--accent-light);font-style:normal}
+.page-hero-sub{font-size:15px;color:rgba(255,255,255,.65)}
+.breadcrumb{padding:0 0 14px;font-size:13px;color:rgba(255,255,255,.5)}
+.breadcrumb a{color:rgba(255,255,255,.45);transition:color var(--trans-fast)}
+.breadcrumb a:hover{color:var(--accent-light)}
+.breadcrumb span{margin:0 6px;opacity:.4}
+
+/* LAYOUT */
+.konto-layout{display:grid;grid-template-columns:260px 1fr;gap:32px;padding:40px 0 80px;align-items:start}
+
+/* SIDEBAR */
+.konto-sidebar{background:var(--white);border-radius:var(--radius-lg);border:1px solid var(--border-light);box-shadow:var(--shadow-xs);overflow:hidden;position:sticky;top:calc(var(--header-h) + 20px)}
+.konto-user-head{background:var(--primary);padding:24px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.konto-avatar{width:72px;height:72px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:26px;font-family:'Bebas Neue',sans-serif;color:white;letter-spacing:.06em;margin-bottom:12px;border:3px solid rgba(255,255,255,.2)}
+.konto-user-name{font-size:16px;font-weight:700;color:white;margin-bottom:2px}
+.konto-user-email{font-size:12px;color:rgba(255,255,255,.55)}
+.konto-nav{padding:8px 0}
+.konto-nav-item{display:flex;align-items:center;gap:12px;padding:13px 20px;font-size:14px;font-weight:500;color:var(--text-mid);cursor:pointer;border:none;background:none;width:100%;text-align:left;transition:background var(--trans-fast),color var(--trans-fast);border-left:3px solid transparent}
+.konto-nav-item:hover{background:var(--accent-pale);color:var(--accent-deep)}
+.konto-nav-item.active{background:var(--accent-pale);color:var(--accent-deep);border-left-color:var(--accent);font-weight:700}
+.konto-nav-item .nav-ico{font-size:18px;flex-shrink:0;width:24px;text-align:center}
+.konto-nav-divider{height:1px;background:var(--border-light);margin:6px 0}
+.konto-logout{color:#e63946!important}
+.konto-logout:hover{background:#fde8e8!important;color:#c0392b!important}
+
+/* PANELS */
+.konto-panel{display:none}
+.konto-panel.active{display:block}
+.konto-card{background:var(--white);border-radius:var(--radius-lg);border:1px solid var(--border-light);box-shadow:var(--shadow-xs);padding:28px 32px;margin-bottom:20px}
+.konto-card-title{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--primary);letter-spacing:.04em;margin-bottom:4px}
+.konto-card-sub{font-size:13px;color:var(--text-muted);margin-bottom:20px}
+
+/* DASHBOARD */
+.dash-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
+.dash-stat{background:var(--white);border:1px solid var(--border-light);border-radius:var(--radius-lg);padding:20px;text-align:center;box-shadow:var(--shadow-xs)}
+.dash-stat-num{font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--accent);letter-spacing:.04em;line-height:1}
+.dash-stat-label{font-size:12px;color:var(--text-muted);margin-top:4px}
+.dash-quick{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.dash-quick-btn{display:flex;align-items:center;gap:12px;padding:16px 18px;background:var(--bg);border:1.5px solid var(--border-light);border-radius:var(--radius-lg);font-size:13px;font-weight:600;color:var(--text);cursor:pointer;transition:background var(--trans-fast),border-color var(--trans-fast),transform .1s}
+.dash-quick-btn:hover{background:var(--accent-pale);border-color:var(--accent);transform:translateY(-1px)}
+.dash-quick-btn .ico{font-size:22px;flex-shrink:0}
+
+/* BESTELLUNGEN */
+.order-empty{text-align:center;padding:56px 20px;color:var(--text-muted)}
+.order-empty-ico{font-size:56px;margin-bottom:14px}
+.order-card{border:1px solid var(--border-light);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:16px;transition:box-shadow var(--trans-fast)}
+.order-card:hover{box-shadow:var(--shadow-sm)}
+.order-head{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:var(--bg);border-bottom:1px solid var(--border-light);flex-wrap:wrap;gap:8px}
+.order-meta{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.order-num{font-size:14px;font-weight:700;color:var(--text)}
+.order-date{font-size:12px;color:var(--text-muted)}
+.order-status{font-size:11px;font-weight:700;padding:3px 10px;border-radius:50px}
+.status-ok{background:#d4f5ec;color:#1a6b56}
+.status-pending{background:#fff3cd;color:#856404}
+.status-shipped{background:#daeef8;color:var(--accent-deep)}
+.order-body{padding:16px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.order-items-preview{font-size:13px;color:var(--text-mid)}
+.order-total{font-size:16px;font-weight:800;color:var(--accent-deep)}
+
+/* ADRESSEN */
+.addr-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+.addr-card{border:1.5px solid var(--border-light);border-radius:var(--radius-lg);padding:18px 20px;position:relative;background:var(--white);transition:border-color var(--trans-fast)}
+.addr-card:hover{border-color:var(--border)}
+.addr-card.default{border-color:var(--accent);background:var(--accent-pale)}
+.addr-default-badge{display:inline-block;font-size:10px;font-weight:700;background:var(--accent);color:white;padding:2px 8px;border-radius:50px;margin-bottom:10px}
+.addr-card p{font-size:13px;color:var(--text-mid);line-height:1.8}
+.addr-actions{display:flex;gap:12px;margin-top:12px}
+.addr-btn{font-size:12px;font-weight:600;color:var(--accent);background:none;border:none;cursor:pointer;padding:0}
+.addr-btn:hover{text-decoration:underline}
+.addr-btn.del{color:#e63946}
+.addr-add-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:16px;border:2px dashed var(--border);border-radius:var(--radius-lg);background:none;color:var(--text-muted);font-size:14px;font-weight:600;cursor:pointer;transition:border-color var(--trans-fast),color var(--trans-fast)}
+.addr-add-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* FORMS */
+.form-group{margin-bottom:18px}
+.form-group label{display:block;font-size:13px;font-weight:600;color:var(--text-mid);margin-bottom:6px}
+.form-control{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:14px;font-family:inherit;color:var(--text);background:var(--white);outline:none;transition:border-color var(--trans-fast),box-shadow var(--trans-fast)}
+.form-control:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(42,141,196,.12)}
+.form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-error{display:block;font-size:12px;color:#e63946;margin-top:4px;min-height:16px}
+.form-group.has-error .form-control{border-color:#e63946}
+.req{color:#e63946;margin-left:2px}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:white;border:none;padding:12px 26px;border-radius:var(--radius-xl);font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;transition:background var(--trans-fast)}
+.btn-primary:hover{background:var(--accent-deep)}
+.btn-secondary{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--text-mid);border:1.5px solid var(--border);padding:11px 24px;border-radius:var(--radius-xl);font-size:14px;font-weight:600;font-family:inherit;cursor:pointer;transition:border-color var(--trans-fast),color var(--trans-fast)}
+.btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
+.btn-danger{background:#e63946;color:white;border:none;padding:10px 22px;border-radius:var(--radius-xl);font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;transition:background var(--trans-fast)}
+.btn-danger:hover{background:#c0392b}
+
+/* BENACHRICHTIGUNGEN */
+.notif-row{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--border-light)}
+.notif-row:last-child{border-bottom:none}
+.notif-info strong{display:block;font-size:14px;font-weight:600;color:var(--text)}
+.notif-info span{font-size:12px;color:var(--text-muted)}
+.toggle-wrap{position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0}
+.toggle-wrap input{opacity:0;width:0;height:0;position:absolute}
+.toggle-slider{position:absolute;inset:0;background:var(--border);border-radius:24px;cursor:pointer;transition:background var(--trans-fast)}
+.toggle-slider::before{content:'';position:absolute;width:18px;height:18px;left:3px;bottom:3px;background:white;border-radius:50%;transition:transform var(--trans-fast)}
+.toggle-wrap input:checked+.toggle-slider{background:var(--accent)}
+.toggle-wrap input:checked+.toggle-slider::before{transform:translateX(20px)}
+
+/* SICHERHEIT */
+.security-item{display:flex;align-items:center;gap:16px;padding:16px 0;border-bottom:1px solid var(--border-light)}
+.security-item:last-child{border-bottom:none}
+.security-ico{width:44px;height:44px;border-radius:var(--radius);background:var(--accent-pale);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.security-info{flex:1}
+.security-info strong{display:block;font-size:14px;font-weight:600;color:var(--text);margin-bottom:2px}
+.security-info span{font-size:12px;color:var(--text-muted)}
+
+/* BANNERS */
+.banner{border-radius:var(--radius);padding:12px 16px;font-size:13px;margin-bottom:16px;display:none}
+.banner.show{display:block}
+.banner-ok{background:#d4f5ec;border-left:4px solid #2a9d8f;color:#1a6b56}
+.banner-err{background:#fde8e8;border-left:4px solid #e63946;color:#c0392b}
+
+/* PASSWORT */
+.pw-wrap{position:relative}
+.pw-wrap .form-control{padding-right:44px}
+.pw-eye{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);font-size:16px;cursor:pointer}
+.pw-eye:hover{color:var(--accent)}
+
+/* TOAST */
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(14px);background:var(--primary);color:white;padding:12px 24px;border-radius:50px;font-size:13px;font-weight:600;box-shadow:0 4px 20px rgba(0,0,0,.25);z-index:999;opacity:0;transition:opacity .25s,transform .25s;white-space:nowrap;max-width:90vw;text-align:center;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* MOBILE DRAWER */
+.nav-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;opacity:0;transition:opacity var(--trans)}
+.nav-overlay.open{display:block;opacity:1}
+.nav-drawer{position:fixed;top:0;left:-320px;width:300px;height:100%;background:var(--white);z-index:301;overflow-y:auto;transition:left var(--trans);box-shadow:var(--shadow-md)}
+.nav-drawer.open{left:0}
+.drawer-header{display:flex;align-items:center;justify-content:space-between;padding:20px;border-bottom:1px solid var(--border-light);background:var(--primary)}
+.drawer-close{background:none;border:none;color:white;font-size:22px;cursor:pointer}
+.drawer-links a{display:flex;align-items:center;gap:10px;padding:15px 20px;font-size:15px;font-weight:500;color:var(--text);border-bottom:1px solid var(--border-light);transition:background var(--trans-fast)}
+.drawer-links a:hover{background:var(--accent-pale);color:var(--accent-deep)}
+
+/* FOOTER */
+footer{background:var(--primary-dark);color:rgba(255,255,255,.65)}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;padding:64px 0 48px;border-bottom:1px solid rgba(255,255,255,.07)}
+.footer-brand-logo{font-family:'Bebas Neue',sans-serif;font-size:26px;color:white;letter-spacing:.06em;margin-bottom:12px}
+.footer-brand-logo em{color:var(--accent-light);font-style:normal}
+.footer-brand-desc{font-size:13px;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:20px}
+.footer-col h4{color:white;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin-bottom:18px}
+.footer-col li{margin-bottom:10px}
+.footer-col a{font-size:13px;color:rgba(255,255,255,.55);transition:color var(--trans-fast)}
+.footer-col a:hover{color:var(--accent-light)}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;padding:20px 0;font-size:12px;color:rgba(255,255,255,.3);flex-wrap:wrap;gap:12px}
+.footer-bottom-links{display:flex;gap:20px}
+.footer-bottom-links a{color:rgba(255,255,255,.3);transition:color var(--trans-fast)}
+.footer-bottom-links a:hover{color:rgba(255,255,255,.65)}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .konto-layout{grid-template-columns:1fr}
+  .konto-sidebar{position:static}
+  .footer-top{grid-template-columns:1fr 1fr;gap:28px}
+  .dash-stats{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:700px){
+  .dash-stats{grid-template-columns:1fr 1fr}
+  .dash-quick{grid-template-columns:1fr}
+  .form-row-2{grid-template-columns:1fr}
+  .addr-grid{grid-template-columns:1fr}
+  .mobile-toggle{display:flex}
+  .main-nav{display:none}
+  .topbar-left{display:none}
+  .konto-card{padding:20px}
+  .footer-top{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="container">
+    <div class="topbar-inner">
+      <div class="topbar-left"><span>📞</span><span>+49 (0) 631 / 123 45 67</span><span style="margin:0 8px;opacity:.3">|</span><span>Mo–Fr: 8:00–17:00</span></div>
+      <div class="topbar-right">
+        <a href="kontakt.html"><span>✉</span> Kontakt</a>
+        <a href="versand.html"><span>🚚</span> Versand</a>
+        <a href="konditionen.html"><span>💼</span> Konditionen</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="logo">gastro<em>werke</em></a>
+      <button class="mobile-toggle" id="menuToggle">☰</button>
+      <form class="search-form" action="kategorie.html" method="GET" style="flex:1">
+        <input type="search" name="q" placeholder="Produkte suchen …" autocomplete="off">
+        <button type="submit">🔍</button>
+      </form>
+      <div class="header-actions">
+        <a href="konto.html" class="hdr-btn" style="color:var(--accent)"><span class="icon">👤</span><span>Konto</span></a>
+        <a href="wishlist.html" class="hdr-btn"><span class="icon">♡</span><span>Wunschliste</span></a>
+        <a href="checkout.html" class="hdr-btn hdr-btn-cart"><span class="icon">🛒</span><span>Warenkorb</span><span class="cart-badge" id="cartBadge">0</span></a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="main-nav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-link">🏠 Start</a>
+      <a href="kategorie.html?cat=Kühltechnik" class="nav-link">❄️ Kühltechnik</a>
+      <a href="kategorie.html?cat=Edelstahlmöbel" class="nav-link">🔩 Edelstahlmöbel</a>
+      <a href="kategorie.html?cat=Spültechnik" class="nav-link">💧 Spültechnik</a>
+      <a href="kategorie.html?cat=Küchenmaschinen" class="nav-link">🍳 Küchenmaschinen</a>
+      <a href="kategorie.html?sale=true" class="nav-link">🔥 SALE</a>
+      <a href="preisliste.html" class="nav-link">📋 Preisliste</a>
+      <a href="ueber-uns.html" class="nav-link">ℹ️ Über uns</a>
+      <a href="kontakt.html" class="nav-link">✉ Kontakt</a>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE DRAWER -->
+<div class="nav-overlay" id="navOverlay"></div>
+<div class="nav-drawer" id="navDrawer">
+  <div class="drawer-header">
+    <span class="logo" style="font-size:22px;color:white">gastro<em style="color:var(--accent-light)">werke</em></span>
+    <button class="drawer-close" id="drawerClose">✕</button>
+  </div>
+  <div class="drawer-links">
+    <a href="index.html"><span>🏠</span> Startseite</a>
+    <a href="kategorie.html"><span>📦</span> Alle Produkte</a>
+    <a href="kategorie.html?cat=Kühltechnik"><span>❄️</span> Kühltechnik</a>
+    <a href="kategorie.html?cat=Edelstahlmöbel"><span>🔩</span> Edelstahlmöbel</a>
+    <a href="kategorie.html?sale=true"><span>🔥</span> SALE</a>
+    <a href="konto.html"><span>👤</span> Mein Konto</a>
+    <a href="kontakt.html"><span>✉</span> Kontakt</a>
+  </div>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb">
+      <a href="index.html">Start</a><span>›</span><span>Mein Konto</span>
+    </nav>
+    <h1 class="page-hero-title">Mein <em>Konto</em></h1>
+    <p class="page-hero-sub">Bestellungen, Adressen und Einstellungen verwalten.</p>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="container">
+  <div class="konto-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="konto-sidebar">
+      <div class="konto-user-head">
+        <div class="konto-avatar" id="sidebarAvatar">
+          <img src="snowflake.svg" alt="❄" width="36" height="36" style="border-radius:0;opacity:.9">
+        </div>
+        <div class="konto-user-name" id="sidebarName">Gast</div>
+        <div class="konto-user-email" id="sidebarEmail">Nicht angemeldet</div>
+      </div>
+      <nav class="konto-nav" id="kontoNav">
+        <button class="konto-nav-item active" data-panel="dashboard" onclick="showPanel('dashboard')"><span class="nav-ico">🏠</span> Übersicht</button>
+        <button class="konto-nav-item" data-panel="orders" onclick="showPanel('orders')"><span class="nav-ico">📦</span> Meine Bestellungen</button>
+        <button class="konto-nav-item" data-panel="addresses" onclick="showPanel('addresses')"><span class="nav-ico">📍</span> Adressen</button>
+        <button class="konto-nav-item" data-panel="notifications" onclick="showPanel('notifications')"><span class="nav-ico">🔔</span> Benachrichtigungen</button>
+        <button class="konto-nav-item" data-panel="profile" onclick="showPanel('profile')"><span class="nav-ico">✏️</span> Profil bearbeiten</button>
+        <button class="konto-nav-item" data-panel="security" onclick="showPanel('security')"><span class="nav-ico">🔒</span> Sicherheit</button>
+        <div class="konto-nav-divider"></div>
+        <a href="wishlist.html" class="konto-nav-item"><span class="nav-ico">♡</span> Wunschliste</a>
+        <button class="konto-nav-item konto-logout" onclick="doLogout()"><span class="nav-ico">🚪</span> Abmelden</button>
+      </nav>
+    </aside>
+
+    <!-- PANELS WRAPPER -->
+    <div>
+
+      <!-- GAST: nicht eingeloggt -->
+      <div id="panel-guest" class="konto-panel">
+        <div class="konto-card" style="text-align:center;padding:60px 32px">
+          <img src="snowflake.svg" alt="❄" width="72" height="72" style="margin:0 auto 20px;opacity:.7">
+          <h2 style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--primary);letter-spacing:.04em;margin-bottom:10px">Bitte anmelden</h2>
+          <p style="color:var(--text-muted);font-size:15px;margin-bottom:28px">Melden Sie sich an, um Ihre Bestellungen, Adressen und Einstellungen zu verwalten.</p>
+          <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+            <a href="login.html" class="btn-primary" style="padding:14px 36px;font-size:15px">Jetzt anmelden →</a>
+            <a href="login.html?tab=register" class="btn-secondary" style="padding:13px 32px;font-size:15px">Konto erstellen</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- DASHBOARD -->
+      <div id="panel-dashboard" class="konto-panel">
+        <div class="dash-stats">
+          <div class="dash-stat">
+            <div class="dash-stat-num" id="statOrders">0</div>
+            <div class="dash-stat-label">Bestellungen</div>
+          </div>
+          <div class="dash-stat">
+            <div class="dash-stat-num" id="statWish">0</div>
+            <div class="dash-stat-label">Wunschliste</div>
+          </div>
+          <div class="dash-stat">
+            <div class="dash-stat-num" id="statAddr">0</div>
+            <div class="dash-stat-label">Adressen</div>
+          </div>
+        </div>
+        <div class="konto-card">
+          <div class="konto-card-title">Willkommen, <span id="dashName">–</span>!</div>
+          <p class="konto-card-sub">Schnellzugriff auf die wichtigsten Bereiche Ihres Kontos.</p>
+          <div class="dash-quick">
+            <button class="dash-quick-btn" onclick="showPanel('orders')"><span class="ico">📦</span> Bestellungen ansehen</button>
+            <button class="dash-quick-btn" onclick="showPanel('addresses')"><span class="ico">📍</span> Adressen verwalten</button>
+            <button class="dash-quick-btn" onclick="showPanel('notifications')"><span class="ico">🔔</span> Benachrichtigungen</button>
+            <button class="dash-quick-btn" onclick="showPanel('profile')"><span class="ico">✏️</span> Profil bearbeiten</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- BESTELLUNGEN -->
+      <div id="panel-orders" class="konto-panel">
+        <div class="konto-card">
+          <div class="konto-card-title">📦 Meine Bestellungen</div>
+          <p class="konto-card-sub">Alle Ihre bisherigen Bestellungen auf einen Blick.</p>
+          <div id="ordersList"></div>
+        </div>
+      </div>
+
+      <!-- ADRESSEN -->
+      <div id="panel-addresses" class="konto-panel">
+        <div class="konto-card">
+          <div class="konto-card-title">📍 Meine Adressen</div>
+          <p class="konto-card-sub">Verwalten Sie Ihre Liefer- und Rechnungsadressen.</p>
+          <div class="addr-grid" id="addrGrid"></div>
+          <button class="addr-add-btn" onclick="showAddressForm()">＋ Neue Adresse hinzufügen</button>
+          <div id="addrForm" style="display:none;margin-top:24px;padding-top:24px;border-top:1px solid var(--border-light)">
+            <div style="font-weight:700;font-size:15px;margin-bottom:16px">Neue Adresse</div>
+            <div class="form-row-2">
+              <div class="form-group"><label>Vorname<span class="req">*</span></label><input type="text" class="form-control" id="aFirstname"></div>
+              <div class="form-group"><label>Nachname<span class="req">*</span></label><input type="text" class="form-control" id="aLastname"></div>
+            </div>
+            <div class="form-group"><label>Straße & Hausnummer<span class="req">*</span></label><input type="text" class="form-control" id="aStreet"></div>
+            <div class="form-row-2">
+              <div class="form-group"><label>PLZ<span class="req">*</span></label><input type="text" class="form-control" id="aZip"></div>
+              <div class="form-group"><label>Stadt<span class="req">*</span></label><input type="text" class="form-control" id="aCity"></div>
+            </div>
+            <div class="form-group"><label>Land</label><input type="text" class="form-control" id="aCountry" value="Deutschland"></div>
+            <div style="display:flex;gap:12px;margin-top:4px">
+              <button class="btn-primary" onclick="saveAddress()">Adresse speichern</button>
+              <button class="btn-secondary" onclick="hideAddressForm()">Abbrechen</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BENACHRICHTIGUNGEN -->
+      <div id="panel-notifications" class="konto-panel">
+        <div class="konto-card">
+          <div class="konto-card-title">🔔 Benachrichtigungen</div>
+          <p class="konto-card-sub">Wählen Sie, worüber Sie per E-Mail informiert werden möchten.</p>
+          <div class="notif-row">
+            <div class="notif-info"><strong>Bestellbestätigungen</strong><span>Bei jeder neuen Bestellung</span></div>
+            <label class="toggle-wrap"><input type="checkbox" id="notifOrders" checked onchange="saveNotifs()"><span class="toggle-slider"></span></label>
+          </div>
+          <div class="notif-row">
+            <div class="notif-info"><strong>Versandbenachrichtigungen</strong><span>Wenn Ihre Ware versendet wird</span></div>
+            <label class="toggle-wrap"><input type="checkbox" id="notifShipping" checked onchange="saveNotifs()"><span class="toggle-slider"></span></label>
+          </div>
+          <div class="notif-row">
+            <div class="notif-info"><strong>Newsletter & Angebote</strong><span>Aktionen, Neuheiten und Rabatte</span></div>
+            <label class="toggle-wrap"><input type="checkbox" id="notifNewsletter" onchange="saveNotifs()"><span class="toggle-slider"></span></label>
+          </div>
+          <div class="notif-row">
+            <div class="notif-info"><strong>Preisalarm (Wunschliste)</strong><span>Wenn Produkte auf Ihrer Wunschliste günstiger werden</span></div>
+            <label class="toggle-wrap"><input type="checkbox" id="notifWishlist" onchange="saveNotifs()"><span class="toggle-slider"></span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROFIL -->
+      <div id="panel-profile" class="konto-panel">
+        <div class="konto-card">
+          <div class="konto-card-title">✏️ Profil bearbeiten</div>
+          <p class="konto-card-sub">Aktualisieren Sie Ihre persönlichen Daten.</p>
+          <div id="bannerProfile" class="banner banner-ok">✓ Profil erfolgreich gespeichert.</div>
+          <div class="form-row-2">
+            <div class="form-group"><label>Vorname<span class="req">*</span></label><input type="text" class="form-control" id="pFirstname"></div>
+            <div class="form-group"><label>Nachname<span class="req">*</span></label><input type="text" class="form-control" id="pLastname"></div>
+          </div>
+          <div class="form-group"><label>E-Mail-Adresse<span class="req">*</span></label><input type="email" class="form-control" id="pEmail"></div>
+          <div class="form-group"><label>Telefon</label><input type="tel" class="form-control" id="pPhone" placeholder="+49 631 123 456"></div>
+          <div class="form-group"><label>Firma (optional)</label><input type="text" class="form-control" id="pCompany"></div>
+          <button class="btn-primary" onclick="saveProfile()">Profil speichern</button>
+        </div>
+      </div>
+
+      <!-- SICHERHEIT -->
+      <div id="panel-security" class="konto-panel">
+        <div class="konto-card">
+          <div class="konto-card-title">🔒 Sicherheit</div>
+          <p class="konto-card-sub">Verwalten Sie Ihr Passwort und die Kontosicherheit.</p>
+          <div id="bannerSecurity" class="banner banner-ok">✓ Passwort wurde erfolgreich geändert.</div>
+          <div id="bannerSecurityErr" class="banner banner-err"></div>
+
+          <div class="security-item">
+            <div class="security-ico">🔑</div>
+            <div class="security-info">
+              <strong>Passwort ändern</strong>
+              <span>Zuletzt geändert: –</span>
+            </div>
+          </div>
+          <div style="margin-top:16px">
+            <div class="form-group">
+              <!-- Supabase: Aktuelles Passwort wird nicht benötigt -->
+            </div>
+            <div class="form-group">
+              <label>Neues Passwort</label>
+              <div class="pw-wrap"><input type="password" class="form-control" id="pwNew"><button type="button" class="pw-eye" onclick="togglePw('pwNew',this)">👁</button></div>
+            </div>
+            <div class="form-group">
+              <label>Neues Passwort bestätigen</label>
+              <div class="pw-wrap"><input type="password" class="form-control" id="pwConfirm"><button type="button" class="pw-eye" onclick="togglePw('pwConfirm',this)">👁</button></div>
+            </div>
+            <div style="display:flex;gap:12px">
+              <button class="btn-primary" onclick="changePassword()">Passwort ändern</button>
+            </div>
+          </div>
+
+          <div class="security-item" style="margin-top:24px">
+            <div class="security-ico">🗑</div>
+            <div class="security-info">
+              <strong>Konto löschen</strong>
+              <span>Alle Daten werden unwiderruflich gelöscht</span>
+            </div>
+            <button class="btn-danger" onclick="deleteAccount()">Konto löschen</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end panels wrapper -->
+  </div><!-- end konto-layout -->
+</div><!-- end container -->
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-col">
+        <div class="footer-brand-logo">gastro<em>werke</em></div>
+        <p class="footer-brand-desc">Professionelle Gastroausstattung für Restaurants, Hotels und Großküchen. Qualität direkt vom Spezialisten.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Produkte</h4>
+        <ul>
+          <li><a href="kategorie.html?cat=Kühltechnik">Kühltechnik</a></li>
+          <li><a href="kategorie.html?cat=Edelstahlmöbel">Edelstahlmöbel</a></li>
+          <li><a href="kategorie.html?cat=Spültechnik">Spültechnik</a></li>
+          <li><a href="preisliste.html">Preisliste</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Service</h4>
+        <ul>
+          <li><a href="versand.html">Versand & Lieferung</a></li>
+          <li><a href="widerrufsrecht.html">Widerrufsrecht</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Rechtliches</h4>
+        <ul>
+          <li><a href="agb.html">AGB</a></li>
+          <li><a href="datenschutz.html">Datenschutz</a></li>
+          <li><a href="impressum.html">Impressum</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 gastrowerke – Alle Rechte vorbehalten.</span>
+      <div class="footer-bottom-links">
+        <a href="agb.html">AGB</a>
+        <a href="datenschutz.html">Datenschutz</a>
+        <a href="impressum.html">Impressum</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="supabase.js"></script>
+<script src="pages-common.js"></script>
+<script>
+'use strict';
+
+/* ── Hilfsfunktionen ─────────────────────────────────── */
+function toast(msg, dur=2800){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), dur);
+}
+function fmt(p){return p!=null?p.toLocaleString('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2})+' €':'–'}
+function togglePw(id,btn){
+  const i=document.getElementById(id);
+  i.type=i.type==='password'?'text':'password';
+  btn.textContent=i.type==='password'?'👁':'🙈';
+}
+
+/* ── Panel-Wechsel ───────────────────────────────────── */
+function showPanel(name){
+  document.querySelectorAll('.konto-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.konto-nav-item[data-panel]').forEach(b=>b.classList.remove('active'));
+  const panel=document.getElementById('panel-'+name);
+  const btn=document.querySelector('.konto-nav-item[data-panel="'+name+'"]');
+  if(panel) panel.classList.add('active');
+  if(btn) btn.classList.add('active');
+  // Panel-Inhalt laden
+  if(name==='orders') renderOrders();
+  if(name==='addresses') renderAddresses();
+  if(name==='notifications') loadNotifs();
+  if(name==='profile') loadProfile();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ── Init ────────────────────────────────────────────── */
+let _kontoUserData = null; // Cache für getUserData()
+
+document.addEventListener('DOMContentLoaded', async ()=>{
+  // Warte kurz bis Supabase geladen
+  await new Promise(r=>setTimeout(r,300));
+
+  const user = await window.gwAuth.getCurrentUserAsync();
+
+  // Mobile Drawer
+  const toggle=document.getElementById('menuToggle');
+  const overlay=document.getElementById('navOverlay');
+  const drawer=document.getElementById('navDrawer');
+  const close=document.getElementById('drawerClose');
+  if(toggle) toggle.addEventListener('click',()=>{drawer.classList.add('open');overlay.classList.add('open');});
+  if(close) close.addEventListener('click',()=>{drawer.classList.remove('open');overlay.classList.remove('open');});
+  if(overlay) overlay.addEventListener('click',()=>{drawer.classList.remove('open');overlay.classList.remove('open');});
+
+  // Warenkorb-Badge
+  updateCartBadge();
+
+  if(!user){
+    document.querySelectorAll('.konto-panel').forEach(p=>p.classList.remove('active'));
+    document.getElementById('panel-guest').classList.add('active');
+    document.getElementById('kontoNav').style.display='none';
+    return;
+  }
+
+  // Vollständige User-Daten laden
+  _kontoUserData = await window.gwAuth.getUserData();
+
+  const name = _kontoUserData?.name || user.user_metadata?.display_name || user.email?.split('@')[0] || 'Nutzer';
+  document.getElementById('sidebarName').textContent = name;
+  document.getElementById('sidebarEmail').textContent = user.email || '';
+  document.getElementById('dashName').textContent = name.split(' ')[0] || 'Nutzer';
+
+  // Stats
+  const orders = _kontoUserData?.orders || [];
+  const wl = JSON.parse(localStorage.getItem('gw_wishlist')||'[]');
+  const addrs = _kontoUserData?.addresses || [];
+  document.getElementById('statOrders').textContent = orders.length;
+  document.getElementById('statWish').textContent = wl.length;
+  document.getElementById('statAddr').textContent = addrs.length;
+
+  showPanel('dashboard');
+});
+
+function updateCartBadge(){
+  const cart=JSON.parse(localStorage.getItem('gw_cart')||'[]');
+  const b=document.getElementById('cartBadge');
+  if(b) b.textContent=cart.reduce((s,i)=>s+(i.qty||1),0);
+}
+
+/* ── Abmelden ─────────────────────────────────────────── */
+function doLogout(){
+  if(!confirm('Wirklich abmelden?')) return;
+  window.gwAuth.logoutUser();
+}
+
+/* ── Bestellungen ─────────────────────────────────────── */
+function renderOrders(){
+  const container=document.getElementById('ordersList');
+  if(!container) return;
+  const orders = (_kontoUserData?.orders)||[];
+  if(orders.length===0){
+    container.innerHTML=`<div class="order-empty">
+      <div class="order-empty-ico"><img src="snowflake.svg" width="56" height="56" style="margin:0 auto;opacity:.4"></div>
+      <p style="font-size:15px;margin-bottom:16px">Noch keine Bestellungen vorhanden.</p>
+      <a href="kategorie.html" class="btn-primary">Jetzt einkaufen</a>
+    </div>`;
+    return;
+  }
+  container.innerHTML=orders.map(o=>{
+    const date=new Date(o.created_at||o.date).toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit',year:'numeric'});
+    const statusCls=o.status?.includes('versendet')?'status-shipped':o.status?.includes('eingegangen')||o.status==='pending'?'status-pending':'status-ok';
+    const statusLabel=o.status==='pending'?'Eingegangen':o.status||'In Bearbeitung';
+    const itemNames=(o.items||[]).map(i=>i.shortName||i.name).join(', ');
+    return `<div class="order-card">
+      <div class="order-head">
+        <div class="order-meta">
+          <span class="order-num">#${o.order_number||o.id}</span>
+          <span class="order-date">${date}</span>
+        </div>
+        <span class="order-status ${statusCls}">${statusLabel}</span>
+      </div>
+      <div class="order-body">
+        <div class="order-items-preview">${itemNames||'–'}</div>
+        <div class="order-total">${fmt(o.total)}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ── Adressen ─────────────────────────────────────────── */
+function renderAddresses(){
+  const grid=document.getElementById('addrGrid');
+  if(!grid) return;
+  const addresses = _kontoUserData?.addresses || [];
+  if(addresses.length===0){
+    grid.innerHTML=`<div style="grid-column:1/-1;color:var(--text-muted);font-size:14px;padding:16px 0">Noch keine Adressen gespeichert.</div>`;
+    return;
+  }
+  grid.innerHTML=addresses.map((a,i)=>`
+    <div class="addr-card${i===0?' default':''}">
+      ${i===0?'<span class="addr-default-badge">Standard</span>':''}
+      <p><strong>${a.firstname} ${a.lastname}</strong><br>${a.street}<br>${a.zip} ${a.city}<br>${a.country||'Deutschland'}</p>
+      <div class="addr-actions">
+        <button class="addr-btn" onclick="setDefaultAddr(${a.id||i})">Als Standard</button>
+        <button class="addr-btn del" onclick="deleteAddr(${a.id||i})">Löschen</button>
+      </div>
+    </div>`).join('');
+}
+
+function showAddressForm(){ document.getElementById('addrForm').style.display='block'; }
+function hideAddressForm(){ document.getElementById('addrForm').style.display='none'; }
+
+async function saveAddress(){
+  const f=id=>document.getElementById(id)?.value.trim()||'';
+  if(!f('aFirstname')||!f('aLastname')||!f('aStreet')||!f('aZip')||!f('aCity')){
+    toast('Bitte alle Pflichtfelder ausfüllen.');return;
+  }
+  const addr={firstname:f('aFirstname'),lastname:f('aLastname'),street:f('aStreet'),zip:f('aZip'),city:f('aCity'),country:f('aCountry')||'Deutschland'};
+  const ok = await window.gwAuth.addAddress(addr);
+  if(ok){
+    // Cache aktualisieren
+    _kontoUserData = await window.gwAuth.getUserData();
+    document.getElementById('statAddr').textContent=(_kontoUserData?.addresses||[]).length;
+    hideAddressForm();
+    renderAddresses();
+    toast('✓ Adresse gespeichert');
+  } else {
+    toast('Fehler beim Speichern der Adresse.');
+  }
+}
+
+async function deleteAddr(id){
+  if(!confirm('Adresse löschen?')) return;
+  const ok = await window.gwAuth.deleteAddress(id);
+  if(ok){
+    _kontoUserData = await window.gwAuth.getUserData();
+    renderAddresses();
+    toast('Adresse gelöscht');
+  }
+}
+
+async function setDefaultAddr(id){
+  // Supabase: is_default flag setzen
+  const sb = window.gwAuth.getSupabase();
+  if(!sb) return;
+  const user = await window.gwAuth.getCurrentUserAsync();
+  if(!user) return;
+  // Alle auf false, dann gewählte auf true
+  await sb.from('addresses').update({is_default:false}).eq('user_id',user.id);
+  await sb.from('addresses').update({is_default:true}).eq('id',id);
+  _kontoUserData = await window.gwAuth.getUserData();
+  renderAddresses();
+  toast('✓ Standardadresse geändert');
+}
+
+/* ── Benachrichtigungen ──────────────────────────────── */
+function loadNotifs(){
+  const n=JSON.parse(localStorage.getItem('gw_notifs')||'{}');
+  const set=(id,def)=>{const el=document.getElementById(id);if(el)el.checked=n[id]!=null?n[id]:def;};
+  set('notifOrders',true); set('notifShipping',true); set('notifNewsletter',false); set('notifWishlist',false);
+}
+function saveNotifs(){
+  const get=id=>document.getElementById(id)?.checked;
+  localStorage.setItem('gw_notifs',JSON.stringify({notifOrders:get('notifOrders'),notifShipping:get('notifShipping'),notifNewsletter:get('notifNewsletter'),notifWishlist:get('notifWishlist')}));
+  toast('✓ Einstellungen gespeichert');
+}
+
+/* ── Profil ──────────────────────────────────────────── */
+function loadProfile(){
+  const user = _kontoUserData;
+  if(!user) return;
+  const parts=(user.name||'').split(' ');
+  const set=(id,val)=>{const el=document.getElementById(id);if(el)el.value=val||'';};
+  set('pFirstname',parts[0]); set('pLastname',parts.slice(1).join(' ')); set('pEmail',user.email); set('pPhone',user.phone); set('pCompany',user.company);
+}
+async function saveProfile(){
+  const f=id=>(document.getElementById(id)?.value||'').trim();
+  if(!f('pFirstname')||!f('pEmail')){toast('Bitte Vorname und E-Mail ausfüllen.');return;}
+  const name=[f('pFirstname'),f('pLastname')].filter(Boolean).join(' ');
+  const ok = await window.gwAuth.updateUserData({name,email:f('pEmail'),phone:f('pPhone'),company:f('pCompany')});
+  if(ok){
+    _kontoUserData = await window.gwAuth.getUserData();
+    document.getElementById('sidebarName').textContent=name;
+    document.getElementById('sidebarEmail').textContent=f('pEmail');
+    document.getElementById('dashName').textContent=f('pFirstname');
+    const b=document.getElementById('bannerProfile'); b.classList.add('show'); setTimeout(()=>b.classList.remove('show'),3000);
+    toast('✓ Profil gespeichert');
+  }
+}
+
+/* ── Sicherheit / Passwort ───────────────────────────── */
+async function changePassword(){
+  const nw=document.getElementById('pwNew')?.value||'';
+  const conf=document.getElementById('pwConfirm')?.value||'';
+  const errEl=document.getElementById('bannerSecurityErr');
+  const okEl=document.getElementById('bannerSecurity');
+  errEl.classList.remove('show'); okEl.classList.remove('show');
+
+  if(nw.length<6){errEl.textContent='Das neue Passwort muss mindestens 6 Zeichen lang sein.';errEl.classList.add('show');return;}
+  if(nw!==conf){errEl.textContent='Die Passwörter stimmen nicht überein.';errEl.classList.add('show');return;}
+
+  const sb = window.gwAuth.getSupabase();
+  if(!sb){toast('Supabase nicht verfügbar.');return;}
+  const { error } = await sb.auth.updateUser({ password: nw });
+  if(error){errEl.textContent='Fehler: '+error.message;errEl.classList.add('show');return;}
+  okEl.classList.add('show'); setTimeout(()=>okEl.classList.remove('show'),3000);
+  if(document.getElementById('pwNew'))document.getElementById('pwNew').value='';
+  if(document.getElementById('pwConfirm'))document.getElementById('pwConfirm').value='';
+  toast('✓ Passwort geändert');
+}
+
+async function deleteAccount(){
+  if(!confirm('Konto wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.')) return;
+  if(!confirm('Sind Sie sicher? Alle Bestellungen und Daten werden gelöscht.')) return;
+  // In Supabase: User-Löschung erfordert Admin-Rechte oder Edge Function
+  // Stattdessen: Logout und Hinweis
+  toast('Bitte kontaktieren Sie uns unter info@gastrowerke.de für die Kontolöschung.');
+  setTimeout(()=>window.gwAuth.logoutUser(), 2000);
+}
+</script>
+</body>
+</html>

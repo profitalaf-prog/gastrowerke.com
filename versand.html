@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<meta name="description" content="gastrowerke – Versand & Lieferung: Kostenlos ab 100 €, 1–5 Werktage, DHL Express, Speditionslieferung für Großgeräte.">
+<title>Versand & Lieferung – gastrowerke</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+.versand-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:40px 0}
+.versand-card{background:var(--white);border-radius:var(--radius-lg);border:1px solid var(--border-light);box-shadow:var(--shadow-xs);padding:28px 24px;transition:box-shadow var(--trans),transform var(--trans)}
+.versand-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px)}
+.versand-card-icon{font-size:40px;margin-bottom:16px}
+.versand-card-title{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--primary);letter-spacing:.04em;margin-bottom:8px}
+.versand-card-price{font-size:24px;font-weight:800;color:var(--accent-deep);margin-bottom:6px}
+.versand-card-desc{font-size:13px;color:var(--text-muted);line-height:1.65}
+.versand-card.featured{border-color:var(--accent);background:var(--accent-pale)}
+.versand-card.featured .versand-card-title{color:var(--accent-deep)}
+.process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:40px 0;position:relative}
+.process-steps::before{content:'';position:absolute;top:32px;left:12.5%;right:12.5%;height:2px;background:var(--border);z-index:0}
+.process-step{text-align:center;position:relative;z-index:1}
+.step-num{width:64px;height:64px;border-radius:50%;background:var(--accent);color:white;font-family:'Bebas Neue',sans-serif;font-size:26px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;letter-spacing:.06em;border:3px solid var(--white);box-shadow:var(--shadow-sm)}
+.step-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px}
+.step-desc{font-size:12px;color:var(--text-muted);line-height:1.55;padding:0 8px}
+.versand-table{width:100%;border-collapse:collapse;background:var(--white);border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border-light);box-shadow:var(--shadow-xs);margin:24px 0}
+.versand-table thead tr{background:var(--primary)}
+.versand-table th{padding:14px 20px;text-align:left;font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:white}
+.versand-table td{padding:14px 20px;font-size:14px;color:var(--text-mid);border-bottom:1px solid var(--border-light)}
+.versand-table tr:last-child td{border-bottom:none}
+.versand-table tr:hover td{background:var(--accent-pale)}
+.versand-table td:first-child{font-weight:600;color:var(--text)}
+.check{color:#2a9d8f;font-weight:700}
+.cross{color:#e63946;font-weight:700}
+.info-strip{display:flex;gap:16px;background:var(--accent-pale);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px 24px;margin:28px 0;flex-wrap:wrap;align-items:center}
+.info-strip span{font-size:13px;color:var(--text-mid)}
+@media(max-width:900px){.versand-cards{grid-template-columns:1fr 1fr}.process-steps{grid-template-columns:1fr 1fr;gap:24px}.process-steps::before{display:none}}
+@media(max-width:600px){.versand-cards{grid-template-columns:1fr}.process-steps{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="gw-header-root"></div>
+
+<div class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb"><a href="index.html">Start</a><span>›</span><span>Versand & Lieferung</span></nav>
+    <h1 class="page-hero-title">Versand &amp; <em>Lieferung</em></h1>
+    <p class="page-hero-sub">Schnell, sicher und zuverlässig – wir liefern Ihre Bestellung direkt ans Ziel.</p>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+
+    <div class="info-strip reveal">
+      <span>🚚 <strong>Kostenloser Versand</strong> ab 100 € Bestellwert</span>
+      <span>⚡ <strong>Expresslieferung</strong> auf Anfrage möglich</span>
+      <span>📦 <strong>Sicher verpackt</strong> – jede Bestellung sorgsam geschützt</span>
+      <span>🌍 <strong>Lieferung</strong> nach Deutschland, Österreich & Schweiz</span>
+    </div>
+
+    <!-- VERSANDOPTIONEN -->
+    <div class="section-head reveal"><h2 class="section-title">Unsere <em>Versandoptionen</em></h2></div>
+    <div class="versand-cards">
+      <div class="versand-card reveal">
+        <div class="versand-card-icon">📦</div>
+        <div class="versand-card-title">Standard­versand</div>
+        <div class="versand-card-price">9,90 €</div>
+        <p class="versand-card-desc">DHL Paket, 2–5 Werktage. Für Bestellungen unter 100 € Warenwert. Sendungsverfolgung inklusive.</p>
+      </div>
+      <div class="versand-card featured reveal">
+        <div class="versand-card-icon">✨</div>
+        <div class="versand-card-title">Kostenlos</div>
+        <div class="versand-card-price" style="color:var(--accent-deep)">0,00 €</div>
+        <p class="versand-card-desc">Ab einem Bestellwert von 100 € liefern wir versandkostenfrei innerhalb Deutschlands. Kein Gutschein nötig.</p>
+      </div>
+      <div class="versand-card reveal">
+        <div class="versand-card-icon">🚛</div>
+        <div class="versand-card-title">Speditions­lieferung</div>
+        <div class="versand-card-price">auf Anfrage</div>
+        <p class="versand-card-desc">Für Großgeräte &gt; 30 kg. Lieferung frei Bordstein oder auf Wunsch in den Betriebsraum. Terminabstimmung inklusive.</p>
+      </div>
+    </div>
+
+    <!-- LIEFERPROZESS -->
+    <div class="section-head reveal" style="margin-top:12px"><h2 class="section-title">Wie läuft Ihre <em>Lieferung</em> ab?</h2></div>
+    <div class="process-steps">
+      <div class="process-step reveal"><div class="step-num">1</div><div class="step-title">Bestellung aufgeben</div><p class="step-desc">Sie bestellen bequem online. Sie erhalten sofort eine Bestellbestätigung per E-Mail.</p></div>
+      <div class="process-step reveal"><div class="step-num">2</div><div class="step-title">Auftragsbearbeitung</div><p class="step-desc">Wir prüfen Ihre Bestellung und bereiten den Versand vor – i. d. R. innerhalb von 24 Stunden.</p></div>
+      <div class="process-step reveal"><div class="step-num">3</div><div class="step-title">Versand & Tracking</div><p class="step-desc">Ihre Sendung wird übergeben. Sie erhalten eine E-Mail mit Ihrer Sendungsverfolgungsnummer.</p></div>
+      <div class="process-step reveal"><div class="step-num">4</div><div class="step-title">Ankunft & Prüfung</div><p class="step-desc">Ware erhalten, Verpackung prüfen. Bei Schäden bitte sofort per E-Mail melden – wir helfen schnell.</p></div>
+    </div>
+
+    <!-- LIEFERZEITEN TABELLE -->
+    <div class="section-head reveal" style="margin-top:12px"><h2 class="section-title">Liefer<em>zeiten</em> im Überblick</h2></div>
+    <table class="versand-table reveal">
+      <thead><tr><th>Versandart</th><th>Lieferzeit</th><th>Kosten</th><th>Tracking</th><th>Dienstleister</th></tr></thead>
+      <tbody>
+        <tr><td>Standard (DE)</td><td>2–5 Werktage</td><td>9,90 € / ab 100 € kostenlos</td><td class="check">✓ Ja</td><td>DHL</td></tr>
+        <tr><td>Express (DE)</td><td>1–2 Werktage</td><td>19,90 €</td><td class="check">✓ Ja</td><td>DHL Express</td></tr>
+        <tr><td>Österreich</td><td>3–6 Werktage</td><td>14,90 €</td><td class="check">✓ Ja</td><td>DHL</td></tr>
+        <tr><td>Schweiz</td><td>4–7 Werktage</td><td>19,90 € zzgl. Zoll</td><td class="check">✓ Ja</td><td>DHL</td></tr>
+        <tr><td>Spedition Großgeräte</td><td>5–10 Werktage</td><td>auf Anfrage</td><td class="check">✓ Ja</td><td>DB Schenker / Kühne+Nagel</td></tr>
+      </tbody>
+    </table>
+
+    <!-- HINWEISE -->
+    <div class="page-content" style="padding:0 0 60px">
+      <h2>Wichtige <em>Hinweise</em></h2>
+      <h3>Lieferbeschränkungen</h3>
+      <p>Wir liefern aktuell nach Deutschland, Österreich und in die Schweiz. Lieferungen in andere Länder sind auf Anfrage möglich. Bitte kontaktieren Sie uns für ein individuelles Angebot.</p>
+      <h3>Lieferhindernisse</h3>
+      <p>Ist bei Ihrer Lieferadresse keine Zustellung möglich (z. B. schwer zugängliche Gebäude, fehlende Aufzüge bei Speditionslieferungen), teilen Sie uns dies bitte bei der Bestellung mit. Mehrkosten durch erneute Zustellversuche gehen zu Lasten des Empfängers.</p>
+      <h3>Schäden bei Lieferung</h3>
+      <p>Bitte prüfen Sie die Ware bei Annahme auf sichtbare Transportschäden. Melden Sie uns Schäden innerhalb von <strong>24 Stunden</strong> nach Empfang per E-Mail an <a href="mailto:info@gastrowerke.de">info@gastrowerke.de</a> mit Fotos. Ohne Meldung können wir keine Schadensersatzansprüche geltend machen.</p>
+      <h3>Teillieferungen</h3>
+      <p>Bei großen Bestellungen kann es zu Teillieferungen kommen. Teillieferungen werden gesondert berechnet, sofern dies nicht anders vereinbart wurde.</p>
+      <h3>Lieferverzögerungen</h3>
+      <p>Bei unvorhergesehenen Lieferverzögerungen informieren wir Sie umgehend. Höhere Gewalt (Streik, Naturkatastrophen etc.) entbindet uns von Lieferpflichten für die Dauer des Ereignisses.</p>
+    </div>
+
+  </div>
+</section>
+
+<div id="gw-footer-root"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="supabase.js"></script>
+<script src="layout.js"></script>
+<script src="pages-common.js"></script>
+</body>
+</html>

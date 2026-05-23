@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<meta name="description" content="gastrowerke – Anmelden oder Konto erstellen. Zugriff auf Bestellhistorie, Wunschliste und gespeicherte Adressen.">
+<title>Anmelden – gastrowerke</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+.login-wrap{min-height:calc(100vh - var(--header-h) - 200px);display:flex;align-items:center;justify-content:center;padding:48px 20px}
+.login-box{width:100%;max-width:480px}
+.login-logo{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:.06em;color:var(--primary);text-align:center;margin-bottom:28px}
+.login-logo em{color:var(--accent);font-style:normal}
+.login-card{background:var(--white);border-radius:var(--radius-lg);border:1px solid var(--border-light);box-shadow:var(--shadow-md);overflow:hidden}
+.login-tabs{display:flex;border-bottom:2px solid var(--border-light)}
+.login-tab{flex:1;padding:16px;text-align:center;font-size:14px;font-weight:700;color:var(--text-muted);cursor:pointer;border:none;background:transparent;transition:color var(--trans-fast),background var(--trans-fast);letter-spacing:.03em;border-bottom:2px solid transparent;margin-bottom:-2px}
+.login-tab.active{color:var(--accent-deep);border-bottom-color:var(--accent);background:var(--accent-pale)}
+.login-tab:hover:not(.active){color:var(--text);background:var(--bg)}
+.login-panel{padding:32px;display:none}
+.login-panel.active{display:block}
+.login-panel-title{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--primary);letter-spacing:.04em;margin-bottom:4px}
+.login-panel-sub{font-size:13px;color:var(--text-muted);margin-bottom:24px}
+.form-pw-wrap{position:relative}
+.form-pw-wrap .form-control{padding-right:44px}
+.pw-toggle{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);font-size:16px;padding:4px;cursor:pointer;transition:color var(--trans-fast)}
+.pw-toggle:hover{color:var(--accent)}
+.login-divider{display:flex;align-items:center;gap:12px;margin:20px 0;color:var(--text-muted);font-size:12px}
+.login-divider::before,.login-divider::after{content:'';flex:1;height:1px;background:var(--border-light)}
+.login-benefits{background:var(--bg);border-radius:var(--radius);padding:16px;margin-bottom:20px}
+.login-benefits-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:10px;text-transform:uppercase;letter-spacing:.08em}
+.login-benefits ul{list-style:none}
+.login-benefits ul li{font-size:13px;color:var(--text-mid);padding:3px 0;display:flex;align-items:center;gap:8px}
+.login-benefits ul li::before{content:'✓';color:#2a9d8f;font-weight:700;font-size:14px}
+.login-switch{text-align:center;margin-top:16px;font-size:13px;color:var(--text-muted)}
+.login-switch a{color:var(--accent);font-weight:600}
+.login-switch a:hover{text-decoration:underline}
+.error-banner{display:none;background:#fde8e8;border:1px solid #e63946;border-radius:var(--radius);padding:12px 16px;font-size:13px;color:#c0392b;margin-bottom:16px;border-left:4px solid #e63946}
+.success-banner{display:none;background:#d4f5ec;border:1px solid #2a9d8f;border-radius:var(--radius);padding:12px 16px;font-size:13px;color:#1a6b56;margin-bottom:16px}
+.pw-strength{height:4px;border-radius:2px;margin-top:6px;transition:width var(--trans),background var(--trans);background:var(--border-light);position:relative;overflow:hidden}
+.pw-strength-bar{height:100%;border-radius:2px;transition:width .3s,background .3s;width:0}
+.pw-strength-label{font-size:11px;color:var(--text-muted);margin-top:4px}
+</style>
+</head>
+<body>
+<div id="gw-header-root"></div>
+
+<div class="login-wrap">
+  <div class="login-box">
+    <div class="login-logo">gastro<em>werke</em></div>
+
+    <div class="login-card">
+      <div class="login-tabs">
+        <button class="login-tab active" id="tabLogin" onclick="switchTab('login')">Anmelden</button>
+        <button class="login-tab" id="tabReg" onclick="switchTab('reg')">Konto erstellen</button>
+      </div>
+
+      <!-- LOGIN PANEL -->
+      <div class="login-panel active" id="panelLogin">
+        <div class="login-panel-title">Willkommen zurück!</div>
+        <p class="login-panel-sub">Melden Sie sich mit Ihren Zugangsdaten an.</p>
+        <div class="error-banner" id="loginError"></div>
+        <form id="loginForm" novalidate>
+          <div class="form-group">
+            <label for="loginEmail">E-Mail-Adresse <span class="req">*</span></label>
+            <input type="email" id="loginEmail" class="form-control" placeholder="ihre@email.de" autocomplete="email">
+            <span class="form-error"></span>
+          </div>
+          <div class="form-group">
+            <label for="loginPw">Passwort <span class="req">*</span></label>
+            <div class="form-pw-wrap">
+              <input type="password" id="loginPw" class="form-control" placeholder="Ihr Passwort" autocomplete="current-password">
+              <button type="button" class="pw-toggle" onclick="togglePw('loginPw',this)">👁</button>
+            </div>
+            <span class="form-error"></span>
+          </div>
+          <div class="form-check" style="margin-bottom:20px">
+            <input type="checkbox" id="loginRemember">
+            <label for="loginRemember">Angemeldet bleiben</label>
+          </div>
+          <button type="submit" class="btn-primary" style="width:100%;justify-content:center;padding:14px" id="loginBtn">
+            Jetzt anmelden →
+          </button>
+        </form>
+        <div class="login-switch">
+          Noch kein Konto? <a href="#" onclick="switchTab('reg');return false">Jetzt registrieren</a>
+        </div>
+        <div class="login-divider">Demo-Zugangsdaten</div>
+        <div style="background:var(--bg);border-radius:var(--radius);padding:12px 16px;font-size:12px;color:var(--text-muted)">
+          Registrieren Sie sich über „Konto erstellen" – Ihre Daten werden sicher in der Cloud gespeichert.
+        </div>
+      </div>
+
+      <!-- REGISTRIERUNG PANEL -->
+      <div class="login-panel" id="panelReg">
+        <div class="login-panel-title">Konto erstellen</div>
+        <p class="login-panel-sub">Registrieren Sie sich kostenlos – dauert nur eine Minute.</p>
+
+        <div class="login-benefits">
+          <div class="login-benefits-title">Ihre Vorteile als Kunde</div>
+          <ul>
+            <li>Bestellhistorie und Rechnungen abrufen</li>
+            <li>Wunschliste dauerhaft speichern</li>
+            <li>Adressen hinterlegen</li>
+            <li>Schneller Checkout bei Folgebestellungen</li>
+          </ul>
+        </div>
+
+        <div class="error-banner" id="regError"></div>
+        <div class="success-banner" id="regSuccess"></div>
+
+        <form id="regForm" novalidate>
+          <div class="form-group">
+            <label for="regName">Vollständiger Name <span class="req">*</span></label>
+            <input type="text" id="regName" class="form-control" placeholder="Vorname Nachname" autocomplete="name">
+            <span class="form-error"></span>
+          </div>
+          <div class="form-group">
+            <label for="regEmail">E-Mail-Adresse <span class="req">*</span></label>
+            <input type="email" id="regEmail" class="form-control" placeholder="ihre@email.de" autocomplete="email">
+            <span class="form-error"></span>
+          </div>
+          <div class="form-group">
+            <label for="regPw">Passwort <span class="req">*</span></label>
+            <div class="form-pw-wrap">
+              <input type="password" id="regPw" class="form-control" placeholder="Mind. 8 Zeichen" autocomplete="new-password" oninput="checkPwStrength(this.value)">
+              <button type="button" class="pw-toggle" onclick="togglePw('regPw',this)">👁</button>
+            </div>
+            <div class="pw-strength"><div class="pw-strength-bar" id="pwBar"></div></div>
+            <div class="pw-strength-label" id="pwLabel"></div>
+            <span class="form-error"></span>
+          </div>
+          <div class="form-group">
+            <label for="regPw2">Passwort bestätigen <span class="req">*</span></label>
+            <div class="form-pw-wrap">
+              <input type="password" id="regPw2" class="form-control" placeholder="Passwort wiederholen" autocomplete="new-password">
+              <button type="button" class="pw-toggle" onclick="togglePw('regPw2',this)">👁</button>
+            </div>
+            <span class="form-error"></span>
+          </div>
+          <div class="form-check" style="margin-bottom:20px">
+            <input type="checkbox" id="regTerms">
+            <label for="regTerms">Ich akzeptiere die <a href="agb.html">AGB</a> und habe die <a href="datenschutz.html">Datenschutzerklärung</a> gelesen. <span class="req">*</span></label>
+          </div>
+          <button type="submit" class="btn-primary" style="width:100%;justify-content:center;padding:14px" id="regBtn">
+            Konto erstellen →
+          </button>
+        </form>
+        <div class="login-switch">
+          Bereits ein Konto? <a href="#" onclick="switchTab('login');return false">Jetzt anmelden</a>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:20px;font-size:12px;color:var(--text-muted)">
+      🔒 Ihre Daten sind SSL-verschlüsselt und werden nur lokal gespeichert.
+    </div>
+  </div>
+</div>
+
+<div id="gw-footer-root"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="supabase.js"></script>
+<script src="layout.js"></script>
+<script src="pages-common.js"></script>
+<script>
+/* ── Hilfsfunktionen ─────────────────────────────────── */
+function switchTab(tab){
+  document.getElementById('panelLogin').classList.toggle('active',tab==='login');
+  document.getElementById('panelReg').classList.toggle('active',tab==='reg');
+  document.getElementById('tabLogin').classList.toggle('active',tab==='login');
+  document.getElementById('tabReg').classList.toggle('active',tab==='reg');
+}
+
+function togglePw(id,btn){
+  const inp=document.getElementById(id);
+  const show=inp.type==='password';
+  inp.type=show?'text':'password';
+  btn.textContent=show?'🔒':'👁';
+}
+
+function checkPwStrength(pw){
+  const bar=document.getElementById('pwBar');
+  const lbl=document.getElementById('pwLabel');
+  if(!pw){bar.style.width='0';lbl.textContent='';return;}
+  let score=0;
+  if(pw.length>=8)score++;
+  if(pw.length>=12)score++;
+  if(/[A-Z]/.test(pw))score++;
+  if(/[0-9]/.test(pw))score++;
+  if(/[^A-Za-z0-9]/.test(pw))score++;
+  const labels=['Sehr schwach','Schwach','Mittel','Stark','Sehr stark'];
+  const colors=['#e63946','#f4a261','#e9c46a','#2a9d8f','#2a9d8f'];
+  const pct=[20,35,55,75,100];
+  bar.style.width=pct[score-1]+'%';
+  bar.style.background=colors[score-1];
+  lbl.textContent=score>0?labels[score-1]:'';
+  lbl.style.color=colors[score-1];
+}
+
+function clearErrors(form){
+  form.querySelectorAll('.form-error').forEach(e=>e.textContent='');
+  form.querySelectorAll('.form-group').forEach(g=>g.classList.remove('has-error'));
+}
+function setError(form,id,msg){
+  const el=form.querySelector('#'+id)?.closest('.form-group');
+  if(el){el.classList.add('has-error');el.querySelector('.form-error').textContent=msg;}
+  return false;
+}
+function validateEmail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);}
+
+/* ── Auth (Supabase) ─────────────────────────────────── */
+function getRedirectUrl(){
+  const p=new URLSearchParams(location.search).get('redirect');
+  if(p&&(p.startsWith(location.origin)||!p.startsWith('http')))return p;
+  return 'konto.html';
+}
+
+function setLoginBtnLoading(btnId, loading) {
+  const btn = document.getElementById(btnId);
+  if (!btn) return;
+  btn.disabled = loading;
+  btn.style.opacity = loading ? '0.7' : '';
+}
+
+/* ── Login-Formular ──────────────────────────────────── */
+document.getElementById('loginForm').addEventListener('submit', async e=>{
+  e.preventDefault();
+  const form=e.target;
+  clearErrors(form);
+  const email=document.getElementById('loginEmail').value.trim();
+  const pw=document.getElementById('loginPw').value;
+  const errBanner=document.getElementById('loginError');
+  errBanner.style.display='none';
+  let valid=true;
+  if(!validateEmail(email))valid=setError(form,'loginEmail','Bitte eine gültige E-Mail-Adresse eingeben.');
+  if(!pw)valid=setError(form,'loginPw','Bitte Ihr Passwort eingeben.');
+  if(!valid)return;
+
+  setLoginBtnLoading('loginBtn', true);
+  const result = await window.gwAuth.loginUser(email, pw);
+  setLoginBtnLoading('loginBtn', false);
+
+  if(!result.ok){
+    errBanner.textContent = result.msg || 'E-Mail oder Passwort ist falsch.';
+    errBanner.style.display='block';
+    return;
+  }
+  const name = result.user?.user_metadata?.display_name || email.split('@')[0];
+  if(typeof showToast==='function') showToast('Willkommen zurück, '+name+'!');
+  setTimeout(()=>window.location.href=getRedirectUrl(), 600);
+});
+
+/* ── Registrierungs-Formular ─────────────────────────── */
+document.getElementById('regForm').addEventListener('submit', async e=>{
+  e.preventDefault();
+  const form=e.target;
+  clearErrors(form);
+  const name=document.getElementById('regName').value.trim();
+  const email=document.getElementById('regEmail').value.trim();
+  const pw=document.getElementById('regPw').value;
+  const pw2=document.getElementById('regPw2').value;
+  const terms=document.getElementById('regTerms').checked;
+  const errBanner=document.getElementById('regError');
+  const okBanner=document.getElementById('regSuccess');
+  errBanner.style.display='none';okBanner.style.display='none';
+  let valid=true;
+  if(name.length<2)valid=setError(form,'regName','Bitte geben Sie Ihren vollständigen Namen ein.');
+  if(!validateEmail(email))valid=setError(form,'regEmail','Bitte eine gültige E-Mail-Adresse eingeben.');
+  if(pw.length<8)valid=setError(form,'regPw','Das Passwort muss mindestens 8 Zeichen lang sein.');
+  if(pw!==pw2)valid=setError(form,'regPw2','Die Passwörter stimmen nicht überein.');
+  if(!terms){errBanner.textContent='Bitte akzeptieren Sie AGB und Datenschutzbestimmungen.';errBanner.style.display='block';valid=false;}
+  if(!valid)return;
+
+  const regBtn = form.querySelector('button[type="submit"]');
+  if(regBtn){regBtn.disabled=true;regBtn.style.opacity='0.7';}
+  const result = await window.gwAuth.registerUser(name, email, pw);
+  if(regBtn){regBtn.disabled=false;regBtn.style.opacity='';}
+
+  if(!result.ok){
+    errBanner.textContent = result.msg || 'Registrierung fehlgeschlagen.';
+    errBanner.style.display='block';
+    return;
+  }
+  okBanner.textContent='✓ Konto erfolgreich erstellt! Sie werden weitergeleitet …';
+  okBanner.style.display='block';
+  form.style.display='none';
+  setTimeout(()=>window.location.href='konto.html', 1500);
+});
+
+/* Bereits eingeloggt → weiterleiten */
+document.addEventListener('DOMContentLoaded', async ()=>{
+  // Warten bis Supabase bereit
+  await new Promise(r=>setTimeout(r,200));
+  const user = await window.gwAuth.getCurrentUserAsync();
+  if(user) window.location.href='konto.html';
+
+  // Tab via URL-Parameter
+  const t=new URLSearchParams(location.search).get('tab');
+  if(t==='register')switchTab('reg');
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{
+  "shop": {
+    "name": "gastrowerke",
+    "tagline": "Ihr Profi-Partner für Gastrotechnik & Edelstahlmöbel",
+    "email": "info@gastrowerke.de",
+    "phone": "+49 (0) 631 / 123 45 67",
+    "address": {
+      "street": "Industriestraße 14",
+      "zip": "67655",
+      "city": "Kaiserslautern",
+      "country": "Deutschland"
+    },
+    "vat": "19",
+    "vatId": "DE123456789",
+    "hrb": "HRB 12345 Kaiserslautern",
+    "currency": "EUR",
+    "locale": "de-DE"
+  },
+  "shipping": {
+    "freeThreshold": 100,
+    "standardCost": 9.90,
+    "deliveryDays": "1–5 Werktage"
+  },
+  "features": {
+    "reviews": true,
+    "wishlist": true,
+    "compare": true,
+    "newsletter": true
+  }
+}

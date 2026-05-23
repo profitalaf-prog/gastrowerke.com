@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<meta name="description" content="gastrowerke Konditionen – Zahlungsbedingungen, Lieferbedingungen, Staffelpreise, Händlerkonditionen und B2B-Rahmenverträge.">
+<title>Konditionen – gastrowerke</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+.konditionen-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin:32px 0}
+.kond-card{background:var(--white);border-radius:var(--radius-lg);border:1px solid var(--border-light);box-shadow:var(--shadow-xs);padding:28px 24px}
+.kond-card-icon{font-size:32px;margin-bottom:12px}
+.kond-card-title{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--primary);letter-spacing:.04em;margin-bottom:12px}
+.kond-card p{font-size:14px;color:var(--text-mid);line-height:1.7;margin-bottom:8px}
+.kond-card p:last-child{margin-bottom:0}
+.staffel-table{width:100%;border-collapse:collapse;background:var(--white);border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border-light);box-shadow:var(--shadow-xs);margin:24px 0}
+.staffel-table thead tr{background:var(--primary)}
+.staffel-table th{padding:13px 18px;text-align:left;font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:white}
+.staffel-table td{padding:13px 18px;font-size:14px;color:var(--text-mid);border-bottom:1px solid var(--border-light)}
+.staffel-table tr:last-child td{border-bottom:none}
+.staffel-table tr:hover td{background:var(--accent-pale)}
+.staffel-table td:first-child{font-weight:600;color:var(--text)}
+.rabatt-badge{display:inline-block;background:#2a9d8f;color:white;font-size:11px;font-weight:700;padding:2px 8px;border-radius:50px}
+.highlight-box{background:linear-gradient(135deg,var(--primary-dark),var(--primary));border-radius:var(--radius-lg);padding:32px 36px;color:white;margin:36px 0;display:flex;align-items:center;gap:32px;flex-wrap:wrap}
+.highlight-box h3{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--accent-light);letter-spacing:.04em;margin-bottom:10px}
+.highlight-box p{font-size:14px;color:rgba(255,255,255,.7);line-height:1.65;margin-bottom:0}
+@media(max-width:700px){.konditionen-grid{grid-template-columns:1fr}.highlight-box{flex-direction:column;gap:16px}}
+</style>
+</head>
+<body>
+<div id="gw-header-root"></div>
+
+<div class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb"><a href="index.html">Start</a><span>›</span><span>Konditionen</span></nav>
+    <h1 class="page-hero-title">Unsere <em>Konditionen</em></h1>
+    <p class="page-hero-sub">Transparente Preise, faire Zahlungsbedingungen und attraktive Staffelpreise für Gewerbekunden.</p>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+
+    <!-- ÜBERSICHT KARTEN -->
+    <div class="konditionen-grid">
+      <div class="kond-card reveal">
+        <div class="kond-card-icon">💳</div>
+        <div class="kond-card-title">Zahlungsarten</div>
+        <p>Wir akzeptieren folgende Zahlungsmethoden: PayPal, Kreditkarte (Visa, Mastercard), SEPA-Lastschrift, Vorkasse sowie Kauf auf Rechnung für qualifizierte Geschäftskunden.</p>
+        <p>Bei Vorkasse gilt der Kaufpreis als bezahlt nach vollständigem Geldeingang auf unserem Konto. Die Lieferung erfolgt direkt im Anschluss.</p>
+      </div>
+      <div class="kond-card reveal">
+        <div class="kond-card-icon">📅</div>
+        <div class="kond-card-title">Zahlungsfristen</div>
+        <p>Rechnungen sind innerhalb von <strong>14 Tagen</strong> nach Rechnungsdatum ohne Abzug zu begleichen. Bei Skontovereinbarung: 2 % Skonto bei Zahlung binnen 7 Tagen.</p>
+        <p>Bei Verzug werden Verzugszinsen in Höhe von 9 Prozentpunkten über dem Basiszinssatz berechnet.</p>
+      </div>
+      <div class="kond-card reveal">
+        <div class="kond-card-icon">🚚</div>
+        <div class="kond-card-title">Versandbedingungen</div>
+        <p>Versandkostenfrei ab 100 € Bestellwert (netto) innerhalb Deutschlands. Darunter fällt eine Versandpauschale von 9,90 €. Für Speditionsware gelten gesonderte Konditionen.</p>
+        <p>Lieferzeiten: 2–5 Werktage für Lagerware, 2–4 Wochen für Sonderbestellungen.</p>
+      </div>
+      <div class="kond-card reveal">
+        <div class="kond-card-icon">↩</div>
+        <div class="kond-card-title">Rückgabe & Garantie</div>
+        <p>30 Tage Rückgaberecht für unbenutzte Ware in Originalverpackung. Alle Produkte unterliegen der gesetzlichen Gewährleistungsfrist von 24 Monaten.</p>
+        <p>Rücksendungen bitte vorab per E-Mail ankündigen. Wir stellen Ihnen ein kostenloses Rücksendeetikett zur Verfügung.</p>
+      </div>
+    </div>
+
+    <!-- STAFFELPREISE -->
+    <div class="section-head reveal" style="margin-top:12px"><h2 class="section-title">Staffel<em>preise</em></h2></div>
+    <table class="staffel-table reveal">
+      <thead><tr><th>Bestellwert (netto)</th><th>Rabatt</th><th>Zahlungsziel</th><th>Skonto</th></tr></thead>
+      <tbody>
+        <tr><td>Bis 99,99 €</td><td>–</td><td>14 Tage netto</td><td>–</td></tr>
+        <tr><td>100 € – 499,99 €</td><td><span class="rabatt-badge">2 %</span></td><td>14 Tage netto</td><td>2 % bei 7 Tagen</td></tr>
+        <tr><td>500 € – 999,99 €</td><td><span class="rabatt-badge">3 %</span></td><td>21 Tage netto</td><td>2 % bei 10 Tagen</td></tr>
+        <tr><td>1.000 € – 2.499,99 €</td><td><span class="rabatt-badge">5 %</span></td><td>30 Tage netto</td><td>2 % bei 14 Tagen</td></tr>
+        <tr><td>Ab 2.500 €</td><td><span class="rabatt-badge" style="background:var(--accent-deep)">auf Anfrage</span></td><td>nach Vereinbarung</td><td>nach Vereinbarung</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:var(--text-muted);margin-top:-8px;margin-bottom:32px">* Staffelpreise gelten automatisch beim Checkout. Zusätzliche Konditionen für Rahmenverträge auf Anfrage.</p>
+
+    <!-- B2B HIGHLIGHT -->
+    <div class="highlight-box reveal">
+      <div style="flex:1;min-width:240px">
+        <h3>B2B & Rahmen­verträge</h3>
+        <p>Als gewerblicher Großkunde profitieren Sie von individuell verhandelten Konditionen, festen Ansprechpartnern, Rahmenverträgen mit garantierten Preisen und bevorzugtem Lieferstatus.</p>
+      </div>
+      <div style="flex-shrink:0">
+        <a href="kontakt.html" class="btn-primary-large">Jetzt anfragen →</a>
+      </div>
+    </div>
+
+    <!-- WEITERE KONDITIONEN -->
+    <div class="page-content" style="padding:0 0 60px">
+      <h2>Weitere <em>Informationen</em></h2>
+      <h3>Mindestbestellwert</h3>
+      <p>Es gibt keinen Mindestbestellwert. Für einzelne Kleinstbestellungen unter 20 € behalten wir uns jedoch eine Bearbeitungsgebühr von 4,90 € vor.</p>
+      <h3>Preisangaben</h3>
+      <p>Alle angegebenen Preise auf unserer Website sind Bruttopreise inklusive der gesetzlichen Mehrwertsteuer von 19 %. Nettopreise für gewerbliche Kunden sind auf Anfrage oder durch Umschalten in der Preisliste einsehbar.</p>
+      <h3>Preisänderungen</h3>
+      <p>Wir behalten uns das Recht vor, Preise ohne vorherige Ankündigung zu ändern. Für laufende Bestellungen gilt immer der zum Zeitpunkt der Bestellung gültige Preis.</p>
+      <h3>Eigentumsvorbehalt</h3>
+      <p>Die gelieferte Ware bleibt bis zur vollständigen Bezahlung des Kaufpreises Eigentum der gastrowerke GmbH. Eine Weiterveräußerung, Verpfändung oder sonstige Verfügung über die Vorbehaltsware ist bis zur vollständigen Zahlung nicht gestattet.</p>
+      <h3>Exportbeschränkungen</h3>
+      <p>Für bestimmte Produkte können Ausfuhrbeschränkungen gelten. Bei Lieferungen außerhalb der EU sind Sie als Käufer für die Einhaltung der geltenden Import- und Exportvorschriften verantwortlich.</p>
+    </div>
+
+  </div>
+</section>
+
+<div id="gw-footer-root"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="supabase.js"></script>
+<script src="layout.js"></script>
+<script src="pages-common.js"></script>
+</body>
+</html>

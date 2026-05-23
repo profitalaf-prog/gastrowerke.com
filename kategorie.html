@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<meta name="description" content="gastrowerke – Alle Produkte: Edelstahlmöbel, Gastrotechnik, Kühlung. Jetzt filtern, sortieren und kaufen.">
+<title>Produkte – gastrowerke</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#1a2c3e;--primary-dark:#111e2b;--accent:#2a8dc4;--accent-light:#5ab0e0;--accent-pale:#daeef8;--accent-deep:#1b6fa0;--steel:#7aa3bb;--steel-light:#c0d8e8;--bg:#f0f6fb;--white:#ffffff;--text:#1e3044;--text-mid:#3a5570;--text-muted:#5a7a91;--border:#cde0ee;--border-light:#e4f0f8;--radius-sm:4px;--radius:8px;--radius-lg:14px;--radius-xl:22px;--shadow-xs:0 1px 4px rgba(26,44,62,.07);--shadow-sm:0 2px 10px rgba(26,44,62,.09);--shadow:0 4px 20px rgba(26,44,62,.11);--shadow-md:0 8px 32px rgba(26,44,62,.14);--shadow-lg:0 16px 56px rgba(26,44,62,.18);--trans-fast:.15s ease;--trans:.25s ease;--trans-slow:.4s ease;--header-h:72px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.65;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+ul{list-style:none}
+.container{max-width:1320px;margin:0 auto;padding:0 20px}
+.topbar{background:var(--primary-dark);color:var(--steel-light);font-size:12px;letter-spacing:.04em;padding:7px 0}
+.topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.topbar-right{display:flex;align-items:center;gap:20px}
+.topbar-right a,.topbar-left{color:var(--steel-light);display:flex;align-items:center;gap:5px;transition:color var(--trans-fast)}
+.topbar-right a:hover{color:var(--accent-light)}
+header{background:var(--white);position:sticky;top:0;z-index:200;border-bottom:1px solid var(--border-light);box-shadow:var(--shadow-sm);transition:box-shadow var(--trans)}
+header.scrolled{box-shadow:var(--shadow-md)}
+.header-inner{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:20px;height:var(--header-h);padding:0 20px}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:.06em;color:var(--primary);white-space:nowrap}
+.logo em{color:var(--accent);font-style:normal}
+.search-wrap{flex:1;min-width:0;position:relative}
+.search-form{display:flex;align-items:center;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--radius-xl);transition:border-color var(--trans-fast),box-shadow var(--trans-fast);position:relative}
+.search-form:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px rgba(42,141,196,.12)}
+.search-form input{flex:1;border:none;background:transparent;padding:11px 18px;font-size:14px;font-family:inherit;color:var(--text);outline:none;min-width:0;border-radius:var(--radius-xl) 0 0 var(--radius-xl)}
+.search-form input::placeholder{color:var(--text-muted)}
+.search-form button[type="submit"]{background:var(--accent);border:none;color:white;padding:11px 20px;font-size:16px;transition:background var(--trans-fast);flex-shrink:0;border-radius:0 var(--radius-xl) var(--radius-xl) 0}
+.search-dropdown{position:absolute;top:calc(100% + 6px);left:0;right:0;background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-md);z-index:500;max-height:400px;overflow-y:auto;display:none}
+.search-dropdown.open{display:block}
+.search-dropdown-header{padding:10px 16px 6px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border-light)}
+.search-result-item{display:flex;align-items:center;gap:12px;padding:10px 16px;cursor:pointer;transition:background var(--trans-fast);border-bottom:1px solid var(--border-light)}
+.search-result-item:hover{background:var(--accent-pale)}
+.search-result-img{width:44px;height:44px;border-radius:var(--radius);background:#eef4f9;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.search-result-img img{width:100%;height:100%;object-fit:cover}
+.search-result-info strong{display:block;font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.search-result-info span{font-size:11px;color:var(--text-muted)}
+.search-result-price{font-size:14px;font-weight:800;color:var(--accent-deep);flex-shrink:0}
+.search-no-results{padding:20px 16px;text-align:center;color:var(--text-muted);font-size:14px}
+.mobile-search-bar{display:none;background:var(--white);padding:10px 16px 12px;border-bottom:1px solid var(--border-light)}
+.header-actions{display:flex;align-items:center;gap:6px}
+.hdr-btn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 10px;border:none;background:transparent;color:var(--text-mid);font-size:11px;font-weight:500;border-radius:var(--radius);transition:background var(--trans-fast),color var(--trans-fast);white-space:nowrap;position:relative}
+.hdr-btn .icon{font-size:20px}
+.hdr-btn:hover{background:var(--accent-pale);color:var(--accent-deep)}
+.hdr-btn-cart{background:var(--accent);color:white;padding:10px 16px;border-radius:var(--radius-xl);flex-direction:row;gap:8px;font-size:13px;font-weight:600}
+.hdr-btn-cart:hover{background:var(--accent-deep)}
+.cart-badge,.wish-badge{position:absolute;top:-4px;right:-4px;background:#e63946;color:white;font-size:10px;font-weight:700;width:18px;height:18px;border-radius:50%;display:none;align-items:center;justify-content:center;border:2px solid white}
+.mobile-toggle{display:none;background:none;border:none;color:var(--primary);font-size:24px;padding:8px;flex-shrink:0}
+.main-nav{background:var(--primary)}
+.nav-inner{display:flex;align-items:center;overflow-x:auto;scrollbar-width:none}
+.nav-inner::-webkit-scrollbar{display:none}
+.nav-link{display:flex;align-items:center;gap:5px;padding:14px 17px;color:rgba(255,255,255,.8);font-size:13px;font-weight:500;white-space:nowrap;transition:background var(--trans-fast),color var(--trans-fast);border-bottom:2px solid transparent}
+.nav-link:hover,.nav-link.active{background:rgba(255,255,255,.06);color:var(--accent-light);border-bottom-color:var(--accent)}
+.nav-badge{background:#e63946;color:white;font-size:9px;font-weight:700;padding:2px 5px;border-radius:3px}
+.nav-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;opacity:0;transition:opacity var(--trans)}
+.nav-overlay.open{display:block;opacity:1}
+.nav-drawer{position:fixed;top:0;left:-340px;width:320px;height:100%;background:var(--white);z-index:301;overflow-y:auto;transition:left var(--trans-slow);box-shadow:var(--shadow-lg);-webkit-overflow-scrolling:touch}
+.nav-drawer.open{left:0}
+.drawer-header{display:flex;align-items:center;justify-content:space-between;padding:20px;border-bottom:1px solid var(--border-light);background:var(--primary)}
+.drawer-logo{font-family:'Bebas Neue',sans-serif;font-size:24px;color:white;letter-spacing:.06em}
+.drawer-logo em{color:var(--accent-light);font-style:normal}
+.drawer-close{background:none;border:none;color:white;font-size:22px;cursor:pointer;padding:4px;border-radius:4px}
+.drawer-close:hover{background:rgba(255,255,255,.15)}
+.drawer-links a{display:flex;align-items:center;gap:10px;padding:15px 20px;font-size:15px;font-weight:500;color:var(--text);border-bottom:1px solid var(--border-light);transition:background var(--trans-fast)}
+.drawer-links a:hover{background:var(--accent-pale);color:var(--accent-deep)}
+.drawer-section-label{padding:12px 20px 6px;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);background:var(--bg)}
+.drawer-footer{padding:20px;border-top:1px solid var(--border-light);background:var(--bg)}
+.drawer-footer-links{display:flex;flex-wrap:wrap;gap:8px}
+.drawer-footer-links a{font-size:12px;color:var(--text-muted);padding:4px 8px;border-radius:4px;background:var(--white);border:1px solid var(--border-light)}
+/* CART SIDEBAR */
+.cart-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:400;opacity:0;transition:opacity var(--trans)}
+.cart-overlay.open{display:block;opacity:1}
+.cart-sidebar{position:fixed;top:0;right:-420px;width:400px;max-width:100vw;height:100%;background:var(--white);z-index:401;box-shadow:var(--shadow-lg);transition:right var(--trans-slow);display:flex;flex-direction:column}
+.cart-sidebar.open{right:0}
+.cart-sidebar-header{display:flex;align-items:center;justify-content:space-between;padding:20px;border-bottom:1px solid var(--border-light);background:var(--primary)}
+.cart-sidebar-header h3{font-family:'Bebas Neue',sans-serif;font-size:22px;color:white;letter-spacing:.06em}
+.cart-sidebar-close{background:none;border:none;color:white;font-size:22px;cursor:pointer}
+.cart-sidebar-items{flex:1;overflow-y:auto;padding:16px;-webkit-overflow-scrolling:touch}
+.cart-sidebar-item{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--border-light)}
+.cart-sidebar-img{width:72px;height:72px;border-radius:var(--radius);background:#eef4f9;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:28px}
+.cart-sidebar-img img{width:100%;height:100%;object-fit:cover}
+.cart-sidebar-info{flex:1;min-width:0}
+.cart-sidebar-name{font-size:13px;font-weight:600;color:var(--text);display:block;margin-bottom:4px}
+.cart-sidebar-price{font-size:15px;font-weight:700;color:var(--accent-deep);margin-bottom:8px}
+.cart-qty-row{display:flex;align-items:center;gap:6px}
+.qty-btn{width:28px;height:28px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg);font-size:16px;display:flex;align-items:center;justify-content:center;transition:background var(--trans-fast)}
+.qty-btn:hover{background:var(--accent-pale)}
+.qty-input{width:44px;height:28px;border:1px solid var(--border);border-radius:var(--radius-sm);text-align:center;font-size:13px;font-family:inherit}
+.cart-remove-btn{background:none;border:none;color:var(--text-muted);font-size:16px;padding:4px;border-radius:4px;transition:color var(--trans-fast)}
+.cart-remove-btn:hover{color:#e63946}
+.cart-sidebar-footer{border-top:1px solid var(--border-light);padding:16px 20px;background:var(--bg)}
+.cart-sidebar-totals{font-size:13px;margin-bottom:12px}
+.cart-sidebar-totals-row{display:flex;justify-content:space-between;padding:4px 0}
+.cart-sidebar-totals-row.total{font-size:16px;font-weight:800;color:var(--text);border-top:1px solid var(--border);margin-top:8px;padding-top:10px}
+.btn-go-checkout{display:block;width:100%;padding:14px;background:var(--accent);color:white;text-align:center;border-radius:var(--radius-xl);font-size:14px;font-weight:700;transition:background var(--trans-fast);margin-bottom:8px}
+.btn-go-checkout:hover{background:var(--accent-deep)}
+.btn-go-cart{display:block;width:100%;padding:11px;border:1.5px solid var(--border);background:transparent;color:var(--text-mid);text-align:center;border-radius:var(--radius-xl);font-size:13px;font-weight:600;transition:background var(--trans-fast)}
+.btn-go-cart:hover{background:var(--accent-pale)}
+.cart-empty-state{text-align:center;padding:40px 20px;color:var(--text-muted)}
+.cart-empty-state strong{display:block;font-size:16px;font-weight:700;color:var(--text);margin-bottom:8px}
+/* BREADCRUMB */
+.breadcrumb{padding:14px 0;font-size:13px;color:var(--text-muted)}
+.breadcrumb a{color:var(--text-muted);transition:color var(--trans-fast)}
+.breadcrumb a:hover{color:var(--accent)}
+.breadcrumb span{margin:0 6px;opacity:.5}
+/* CATEGORY HERO */
+.cat-hero{background:var(--primary);color:white;padding:40px 0}
+.cat-hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,5vw,52px);letter-spacing:.04em;margin-bottom:8px}
+.cat-hero-title em{color:var(--accent-light);font-style:normal}
+.cat-hero-sub{color:rgba(255,255,255,.65);font-size:15px}
+/* LAYOUT */
+.cat-layout{display:grid;grid-template-columns:260px 1fr;gap:28px;padding:28px 0 60px;align-items:start}
+/* SIDEBAR FILTER */
+.filter-sidebar{background:var(--white);border-radius:var(--radius-lg);border:1px solid var(--border-light);box-shadow:var(--shadow-xs);padding:20px;position:sticky;top:calc(var(--header-h) + 20px)}
+.filter-title{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border-light)}
+.filter-group{margin-bottom:20px}
+.filter-group-label{font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px}
+.filter-options label{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-mid);padding:5px 0;cursor:pointer;transition:color var(--trans-fast)}
+.filter-options label:hover{color:var(--accent)}
+.filter-options input[type="checkbox"]{accent-color:var(--accent);width:15px;height:15px}
+.filter-price-row{display:flex;gap:8px;align-items:center;margin-top:8px}
+.filter-price-input{flex:1;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:13px;font-family:inherit;width:100%;outline:none;transition:border-color var(--trans-fast)}
+.filter-price-input:focus{border-color:var(--accent)}
+.btn-filter-apply{display:block;width:100%;padding:10px;background:var(--accent);color:white;border:none;border-radius:var(--radius-xl);font-size:13px;font-weight:700;transition:background var(--trans-fast);margin-top:8px}
+.btn-filter-apply:hover{background:var(--accent-deep)}
+.btn-filter-reset{display:block;width:100%;padding:9px;background:transparent;color:var(--text-muted);border:1px solid var(--border);border-radius:var(--radius-xl);font-size:12px;margin-top:6px;transition:background var(--trans-fast)}
+.btn-filter-reset:hover{background:var(--accent-pale);color:var(--text)}
+/* SORT BAR */
+.sort-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;gap:12px;flex-wrap:wrap}
+.result-count{font-size:13px;color:var(--text-muted)}
+.sort-select{padding:9px 14px;border:1.5px solid var(--border);border-radius:var(--radius-xl);font-size:13px;font-family:inherit;background:var(--white);color:var(--text);outline:none;cursor:pointer;transition:border-color var(--trans-fast)}
+.sort-select:focus{border-color:var(--accent)}
+.view-btns{display:flex;gap:4px}
+.view-btn{width:34px;height:34px;border:1.5px solid var(--border);border-radius:var(--radius-sm);background:var(--white);display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;transition:background var(--trans-fast),border-color var(--trans-fast)}
+.view-btn.active,.view-btn:hover{background:var(--accent-pale);border-color:var(--accent)}
+/* PRODUCT GRID */
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+.product-grid.list-view{grid-template-columns:1fr}
+.product-card{background:var(--white);border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border-light);box-shadow:var(--shadow-xs);transition:box-shadow var(--trans),transform var(--trans)}
+.product-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px)}
+.product-grid.list-view .product-card{display:grid;grid-template-columns:200px 1fr;transform:none}
+.product-img-wrap{position:relative;aspect-ratio:1/1;overflow:hidden;background:#eef4f9}
+.product-grid.list-view .product-img-wrap{aspect-ratio:auto;height:100%}
+.product-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform var(--trans-slow)}
+.product-card:hover .product-img-wrap img{transform:scale(1.06)}
+.product-badges{position:absolute;top:10px;left:10px;display:flex;gap:5px;flex-direction:column}
+.badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:3px;letter-spacing:.06em;text-transform:uppercase}
+.badge-sale{background:#e63946;color:white}
+.badge-new{background:var(--accent);color:white}
+.badge-hot{background:#f4a261;color:white}
+.badge-top{background:#2a9d8f;color:white}
+.product-wishlist{position:absolute;top:10px;right:10px;width:34px;height:34px;border-radius:50%;background:white;border:1px solid var(--border-light);font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform var(--trans-fast);box-shadow:var(--shadow-xs)}
+.product-wishlist:hover,.product-wishlist.wished{transform:scale(1.15)}
+.product-body{padding:14px}
+.product-category{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:5px}
+.product-name{font-size:13px;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:8px;display:block;transition:color var(--trans-fast)}
+.product-name:hover{color:var(--accent)}
+.product-stars{font-size:12px;color:#f4a261;margin-bottom:8px}
+.product-review-count{color:var(--text-muted);font-size:11px}
+.product-price{font-size:16px;font-weight:800;color:var(--accent-deep)}
+.product-price-old{font-size:12px;color:var(--text-muted);text-decoration:line-through;margin-left:5px}
+.product-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.btn-add-cart{background:var(--accent);color:white;border:none;padding:8px 14px;border-radius:var(--radius-xl);font-size:12px;font-weight:600;display:flex;align-items:center;gap:5px;transition:background var(--trans-fast),transform var(--trans-fast);white-space:nowrap}
+.btn-add-cart:hover{background:var(--accent-deep);transform:scale(1.04)}
+.no-results{text-align:center;padding:60px 20px;color:var(--text-muted)}
+.no-results h3{font-size:20px;font-weight:700;color:var(--text);margin-bottom:8px}
+/* PAGINATION */
+.pagination{display:flex;gap:6px;justify-content:center;padding:32px 0 0;flex-wrap:wrap}
+.page-btn{width:38px;height:38px;border-radius:var(--radius-sm);border:1.5px solid var(--border);background:var(--white);font-size:13px;font-weight:600;cursor:pointer;transition:background var(--trans-fast),border-color var(--trans-fast)}
+.page-btn.active,.page-btn:hover{background:var(--accent);color:white;border-color:var(--accent)}
+/* FILTER MOBILE TOGGLE */
+.filter-mobile-toggle{display:none;width:100%;padding:12px 16px;background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-xl);font-size:14px;font-weight:600;color:var(--text);margin-bottom:16px;text-align:left}
+/* ACTIVE FILTERS */
+.active-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.active-filter-tag{display:inline-flex;align-items:center;gap:6px;background:var(--accent-pale);border:1px solid var(--accent);color:var(--accent-deep);font-size:12px;font-weight:600;padding:4px 10px;border-radius:50px;cursor:pointer}
+.active-filter-tag:hover{background:var(--accent);color:white}
+/* FOOTER */
+footer{background:var(--primary-dark);color:var(--steel-light);padding:48px 0 0}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.footer-brand{font-family:'Bebas Neue',sans-serif;font-size:24px;color:white;letter-spacing:.06em;margin-bottom:10px}
+.footer-brand em{color:var(--accent-light);font-style:normal}
+.footer-desc{font-size:13px;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:16px}
+.footer-col-title{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-light);margin-bottom:14px}
+.footer-links li{margin-bottom:8px}
+.footer-links a{font-size:13px;color:rgba(255,255,255,.5);transition:color var(--trans-fast)}
+.footer-links a:hover{color:var(--accent-light)}
+.footer-contact li{display:flex;gap:8px;font-size:13px;color:rgba(255,255,255,.5);margin-bottom:8px;align-items:flex-start}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding:18px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.footer-copy{font-size:12px;color:rgba(255,255,255,.3)}
+.footer-legal{display:flex;gap:14px}
+.footer-legal a{font-size:12px;color:rgba(255,255,255,.3);transition:color var(--trans-fast)}
+.footer-legal a:hover{color:var(--accent-light)}
+.back-to-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;border-radius:50%;background:var(--accent);color:white;font-size:20px;border:none;box-shadow:var(--shadow-md);cursor:pointer;opacity:0;pointer-events:none;transition:opacity var(--trans),transform var(--trans);z-index:150;display:flex;align-items:center;justify-content:center}
+.back-to-top.visible{opacity:1;pointer-events:auto}
+.back-to-top:hover{transform:translateY(-3px)}
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .45s ease,transform .45s ease}
+.reveal.visible{opacity:1;transform:none}
+@media(max-width:1024px){.cat-layout{grid-template-columns:1fr}.filter-sidebar{display:none;position:static}.filter-sidebar.mobile-open{display:block}.filter-mobile-toggle{display:block}.footer-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:860px){.header-inner{grid-template-columns:auto auto}.search-wrap{display:none}.mobile-toggle{display:flex}}
+@media(max-width:640px){.mobile-search-bar{display:block}.footer-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="container">
+    <div class="topbar-inner">
+      <div class="topbar-left">📞 +49 (0) 631 / 123 45 67 &nbsp;|&nbsp; Mo–Fr 8–17 Uhr</div>
+      <div class="topbar-right">
+        <a href="preisliste.html">📋 Preisliste</a>
+        <a href="kontakt.html">✉ Kontakt</a>
+        <a href="login.html" class="hdr-login-link">👤 Login</a>
+        <a href="konto.html" class="hdr-account-link" style="display:none">👤 Konto</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header id="main-header">
+  <div class="header-inner container">
+    <a href="index.html" class="logo">gastro<em>werke</em></a>
+    <div class="search-wrap">
+      <form class="search-form" id="searchForm" role="search">
+        <input type="search" id="searchInput" placeholder="Produkt suchen …" autocomplete="off">
+        <button type="submit">🔍</button>
+      </form>
+      <div class="search-dropdown" id="searchDropdown"></div>
+    </div>
+    <div class="header-actions">
+      <a href="wishlist.html" class="hdr-btn" style="position:relative"><span class="icon">♡</span><span>Wunschliste</span><span class="wish-badge" id="wishBadge">0</span></a>
+      <a href="login.html" class="hdr-btn hdr-login-link"><span class="icon">👤</span><span>Konto</span></a>
+      <a href="konto.html" class="hdr-btn hdr-account-link" style="display:none"><span class="icon">👤</span><span>Konto</span></a>
+      <button class="hdr-btn hdr-btn-cart" id="cartBtn"><span class="icon">🛒</span><span>Warenkorb</span><span class="cart-badge" id="cartBadge" style="display:none">0</span></button>
+      <button class="mobile-toggle" id="menuToggle" aria-label="Menü">☰</button>
+    </div>
+  </div>
+  <div class="mobile-search-bar" id="mobileSearchBar" style="display:none">
+    <div class="container">
+      <form class="search-form" id="mobileSearchForm">
+        <input type="search" id="mobileSearchInput" placeholder="Produkt suchen …" autocomplete="off">
+        <button type="submit">🔍</button>
+      </form>
+      <div class="search-dropdown" id="mobileSearchDropdown"></div>
+    </div>
+  </div>
+</header>
+
+<!-- MAIN NAV -->
+<nav class="main-nav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-link">🏠 Start</a>
+      <a href="kategorie.html?cat=Edelstahlmöbel" class="nav-link">🔩 Edelstahlmöbel</a>
+      <a href="kategorie.html?cat=Gastrotechnik" class="nav-link">🍳 Gastrotechnik</a>
+      <a href="kategorie.html?cat=Kühlung+%26+Tiefkühl" class="nav-link">❄️ Kühlung</a>
+      <a href="kategorie.html?sale=true" class="nav-link">🔥 SALE <span class="nav-badge">SALE</span></a>
+      <a href="kategorie.html?new=true" class="nav-link">✨ Neuheiten</a>
+      <a href="preisliste.html" class="nav-link">📋 Preisliste</a>
+      <a href="ueber-uns.html" class="nav-link">ℹ️ Über uns</a>
+      <a href="kontakt.html" class="nav-link">✉ Kontakt</a>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE DRAWER -->
+<div class="nav-overlay" id="navOverlay"></div>
+<nav class="nav-drawer" id="navDrawer">
+  <div class="drawer-header">
+    <div class="drawer-logo">gastro<em>werke</em></div>
+    <button class="drawer-close" id="drawerClose">✕</button>
+  </div>
+  <div class="drawer-links">
+    <a href="index.html">🏠 Startseite</a>
+    <div class="drawer-section-label">Kategorien</div>
+    <a href="kategorie.html?cat=Edelstahlmöbel">🔩 Edelstahlmöbel</a>
+    <a href="kategorie.html?cat=Gastrotechnik">🍳 Gastrotechnik</a>
+    <a href="kategorie.html?cat=Kühlung+%26+Tiefkühl">❄️ Kühlung & Tiefkühl</a>
+    <a href="kategorie.html?sale=true">🔥 SALE</a>
+    <a href="kategorie.html?new=true">✨ Neuheiten</a>
+    <div class="drawer-section-label">Service</div>
+    <a href="preisliste.html">📋 Preisliste</a>
+    <a href="ueber-uns.html">ℹ️ Über uns</a>
+    <a href="kontakt.html">✉ Kontakt</a>
+    <a href="wishlist.html">♡ Wunschliste</a>
+    <a href="cart.html">🛒 Warenkorb</a>
+    <a href="login.html" class="hdr-login-link">👤 Anmelden</a>
+    <a href="konto.html" class="hdr-account-link" style="display:none">👤 Mein Konto</a>
+  </div>
+  <div class="drawer-footer">
+    <div class="drawer-footer-links">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <a href="agb.html">AGB</a>
+      <a href="widerrufsrecht.html">Widerrufsrecht</a>
+    </div>
+  </div>
+</nav>
+
+<!-- CART SIDEBAR -->
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart-sidebar" id="cartSidebar">
+  <div class="cart-sidebar-header">
+    <h3>🛒 Warenkorb</h3>
+    <button class="cart-sidebar-close" id="closeSidebar">✕</button>
+  </div>
+  <div class="cart-sidebar-items"></div>
+  <div class="cart-sidebar-footer">
+    <div class="cart-sidebar-totals">
+      <div class="cart-sidebar-totals-row"><span>Netto</span><span class="cart-sidebar-net-val">–</span></div>
+      <div class="cart-sidebar-totals-row"><span>Versand</span><span class="cart-sidebar-shipping-val">–</span></div>
+      <div class="cart-sidebar-totals-row total"><span>Gesamt</span><span class="cart-sidebar-total-val">–</span></div>
+    </div>
+    <a href="checkout.html" class="btn-go-checkout">Zur Kasse →</a>
+    <a href="cart.html" class="btn-go-cart">Warenkorb anzeigen</a>
+  </div>
+</aside>
+
+<!-- CATEGORY HERO -->
+<div class="cat-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Start</a><span>›</span>
+      <span id="bc-cat">Alle Produkte</span>
+    </nav>
+    <h1 class="cat-hero-title" id="cat-page-title">Alle <em>Produkte</em></h1>
+    <p class="cat-hero-sub" id="cat-page-sub">Professionelle Gastroausstattung für Restaurants, Hotels und Großküchen.</p>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="container">
+  <div class="cat-layout">
+    <!-- FILTER SIDEBAR -->
+    <aside>
+      <button class="filter-mobile-toggle" id="filterMobileToggle">🔧 Filter &amp; Sortierung</button>
+      <div class="filter-sidebar" id="filterSidebar">
+        <div class="filter-title">Filter</div>
+
+        <div class="filter-group">
+          <div class="filter-group-label">Kategorie</div>
+          <div class="filter-options" id="catFilterOptions"></div>
+        </div>
+
+        <div class="filter-group">
+          <div class="filter-group-label">Preis</div>
+          <div class="filter-price-row">
+            <input type="number" class="filter-price-input" id="priceMin" placeholder="Min €" min="0">
+            <span style="color:var(--text-muted)">–</span>
+            <input type="number" class="filter-price-input" id="priceMax" placeholder="Max €" min="0">
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <div class="filter-group-label">Besonderheiten</div>
+          <div class="filter-options">
+            <label><input type="checkbox" id="filterSale"> Nur Sale-Artikel</label>
+            <label><input type="checkbox" id="filterNew"> Nur Neuheiten</label>
+            <label><input type="checkbox" id="filterTop"> Nur Bestseller</label>
+          </div>
+        </div>
+
+        <button class="btn-filter-apply" onclick="applyFilters()">Filter anwenden</button>
+        <button class="btn-filter-reset" onclick="resetFilters()">Filter zurücksetzen</button>
+      </div>
+    </aside>
+
+    <!-- PRODUCTS AREA -->
+    <main>
+      <div class="sort-bar">
+        <div class="result-count" id="resultCount"></div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <select class="sort-select" id="sortSelect" onchange="applyFilters()">
+            <option value="default">Standard</option>
+            <option value="price-asc">Preis aufsteigend</option>
+            <option value="price-desc">Preis absteigend</option>
+            <option value="rating">Bewertung</option>
+            <option value="name">Name A–Z</option>
+          </select>
+          <div class="view-btns">
+            <button class="view-btn active" id="gridViewBtn" title="Rasteransicht" onclick="setView('grid')">▦</button>
+            <button class="view-btn" id="listViewBtn" title="Listenansicht" onclick="setView('list')">☰</button>
+          </div>
+        </div>
+      </div>
+      <div class="active-filters" id="activeFilters"></div>
+      <div class="product-grid" id="product-grid"></div>
+      <div class="pagination" id="pagination"></div>
+    </main>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">gastro<em>werke</em></div>
+        <p class="footer-desc">Ihr Profi-Partner für Gastrogeräte, Edelstahlmöbel und Großküchentechnik.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Shop</div>
+        <ul class="footer-links">
+          <li><a href="kategorie.html">Alle Produkte</a></li>
+          <li><a href="kategorie.html?sale=true">Sale</a></li>
+          <li><a href="kategorie.html?new=true">Neuheiten</a></li>
+          <li><a href="preisliste.html">Preisliste</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Service</div>
+        <ul class="footer-links">
+          <li><a href="ueber-uns.html">Über uns</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+          <li><a href="agb.html">AGB</a></li>
+          <li><a href="widerrufsrecht.html">Widerrufsrecht</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Kontakt</div>
+        <ul class="footer-contact">
+          <li><span>📍</span><span>Industriestraße 14, 67655 Kaiserslautern</span></li>
+          <li><span>📞</span><span>+49 (0) 631 / 123 45 67</span></li>
+          <li><span>✉</span><span>info@gastrowerke.de</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2024 gastrowerke GmbH. Alle Rechte vorbehalten.</span>
+      <nav class="footer-legal">
+        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html">Datenschutz</a>
+        <a href="agb.html">AGB</a>
+        <a href="widerrufsrecht.html">Widerrufsrecht</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+<button class="back-to-top" id="backToTop">↑</button>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="supabase.js"></script>
+<script src="app.js"></script>
+<script>
+let allProducts=[], currentView='grid', currentPage=1, pageSize=12;
+let activeCategories=[], activePriceMin=0, activePriceMax=Infinity, activeSale=false, activeNew=false, activeTop=false, activeSort='default';
+const params=new URLSearchParams(location.search);
+
+document.addEventListener('DOMContentLoaded',async()=>{
+  allProducts = window._gwProducts || await (async()=>{const r=await fetch('products.json');return r.json();})();
+  window._gwProducts=allProducts;
+
+  // Init URL params
+  const cat=params.get('cat'); const q=params.get('q');
+  if(params.get('sale')==='true'){activeSale=true;document.getElementById('filterSale').checked=true;}
+  if(params.get('new')==='true'){activeNew=true;document.getElementById('filterNew').checked=true;}
+  if(params.get('topSeller')==='true'){activeTop=true;document.getElementById('filterTop').checked=true;}
+  if(cat) activeCategories=[cat];
+
+  // Page title
+  if(cat){document.getElementById('cat-page-title').innerHTML=cat+' <em>Produkte</em>';document.getElementById('bc-cat').textContent=cat;}
+  if(activeSale){document.getElementById('cat-page-title').innerHTML='🔥 SALE <em>Angebote</em>';}
+  if(activeNew){document.getElementById('cat-page-title').innerHTML='✨ Neue <em>Produkte</em>';}
+  if(q){document.getElementById('cat-page-title').innerHTML='Suche: <em>'+q+'</em>';document.getElementById('searchInput').value=q;}
+
+  // Build category filter
+  const cats=[...new Set(allProducts.map(p=>p.category))];
+  document.getElementById('catFilterOptions').innerHTML=cats.map(c=>`<label><input type="checkbox" class="cat-cb" value="${c}"${activeCategories.includes(c)?' checked':''}> ${c}</label>`).join('');
+
+  // Search filter if q
+  if(q){
+    const ql=q.toLowerCase();
+    activeCategories=[];
+    const filtered=allProducts.filter(p=>p.name.toLowerCase().includes(ql)||p.category.toLowerCase().includes(ql)||(p.shortName&&p.shortName.toLowerCase().includes(ql))||(p.sku&&p.sku.toLowerCase().includes(ql)));
+    renderGrid(filtered);
+  } else {
+    applyFilters();
+  }
+
+  // Filter mobile toggle
+  document.getElementById('filterMobileToggle')?.addEventListener('click',()=>{
+    document.getElementById('filterSidebar').classList.toggle('mobile-open');
+  });
+
+  // Mark active nav
+  document.querySelectorAll('.nav-link').forEach(l=>{if(l.href&&l.href.includes('kategorie.html'))l.classList.add('active');});
+});
+
+function getFilteredProducts(){
+  const cats=Array.from(document.querySelectorAll('.cat-cb:checked')).map(c=>c.value);
+  const pMin=parseFloat(document.getElementById('priceMin').value)||0;
+  const pMax=parseFloat(document.getElementById('priceMax').value)||Infinity;
+  const sale=document.getElementById('filterSale').checked;
+  const nw=document.getElementById('filterNew').checked;
+  const top=document.getElementById('filterTop').checked;
+  const q=params.get('q')||'';
+
+  return allProducts.filter(p=>{
+    if(cats.length>0 && !cats.includes(p.category)) return false;
+    if(p.price!=null && (p.price<pMin||p.price>pMax)) return false;
+    if(sale && !p.sale) return false;
+    if(nw && !p.new) return false;
+    if(top && !p.topSeller) return false;
+    if(q){const ql=q.toLowerCase();if(!p.name.toLowerCase().includes(ql)&&!p.category.toLowerCase().includes(ql)&&!(p.shortName&&p.shortName.toLowerCase().includes(ql)))return false;}
+    return true;
+  });
+}
+
+function sortProducts(list){
+  const s=document.getElementById('sortSelect').value;
+  return [...list].sort((a,b)=>{
+    if(s==='price-asc') return a.price-b.price;
+    if(s==='price-desc') return b.price-a.price;
+    if(s==='rating') return b.rating-a.rating;
+    if(s==='name') return a.name.localeCompare(b.name,'de');
+    return 0;
+  });
+}
+
+function applyFilters(){
+  const filtered=sortProducts(getFilteredProducts());
+  renderGrid(filtered);
+}
+
+function resetFilters(){
+  document.querySelectorAll('.cat-cb').forEach(cb=>cb.checked=false);
+  document.getElementById('priceMin').value='';
+  document.getElementById('priceMax').value='';
+  document.getElementById('filterSale').checked=false;
+  document.getElementById('filterNew').checked=false;
+  document.getElementById('filterTop').checked=false;
+  document.getElementById('sortSelect').value='default';
+  applyFilters();
+}
+
+function renderGrid(products){
+  const grid=document.getElementById('product-grid');
+  const rc=document.getElementById('resultCount');
+  const pgn=document.getElementById('pagination');
+  if(rc) rc.textContent=products.length+' Produkte';
+  const fmt=p=>p.toLocaleString('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
+  const stars=r=>{let s='';const f=Math.floor(r);for(let i=0;i<f;i++)s+='★';if(r-f>=.5)s+='½';while((s.replace(/½/g,'').length+(s.includes('½')?1:0))<5)s+='☆';return s;};
+  const wl=JSON.parse(localStorage.getItem('gw_wishlist')||'[]');
+  const isLV=currentView==='list';
+  if(products.length===0){
+    grid.innerHTML='<div class="no-results"><h3>Keine Produkte gefunden</h3><p>Versuchen Sie andere Filter oder suchen Sie nach einem anderen Begriff.</p></div>';
+    if(pgn)pgn.innerHTML='';return;
+  }
+  const total=Math.ceil(products.length/pageSize);
+  if(currentPage>total)currentPage=1;
+  const slice=products.slice((currentPage-1)*pageSize,currentPage*pageSize);
+  grid.className='product-grid'+(isLV?' list-view':'');
+  grid.innerHTML=slice.map(p=>{
+    const bCls={sale:'badge-sale',new:'badge-new',hot:'badge-hot',top:'badge-top'}[p.badge]||'';
+    const bHtml=p.badge?`<div class="product-badges"><span class="badge ${bCls}">${p.badgeLabel}</span></div>`:'';
+    const abPrefix=p.priceNote?'ab ':'';const pHtml=p.price==null?`<span class="product-price" style="font-size:13px;color:var(--text-muted)">Preis auf Anfrage</span>`:p.oldPrice?`<div><span class="product-price">${abPrefix}${fmt(p.price)}</span><span class="product-price-old">${fmt(p.oldPrice)}</span></div>`:`<span class="product-price">${abPrefix}${fmt(p.price)}</span>`;
+    const w=wl.includes(p.id);
+    return `<article class="product-card reveal">
+      <a href="produkt.html?slug=${p.slug}"><div class="product-img-wrap">
+        <img src="${p.image||'snowflake.svg'}" alt="${p.name}" loading="lazy" onerror="this.src='snowflake.svg'">${bHtml}
+        <button class="product-wishlist${w?' wished':''}" onclick="event.preventDefault();toggleWishById(${p.id},this)">${w?'❤️':'♡'}</button>
+      </div></a>
+      <div class="product-body">
+        <div class="product-category">${p.category}</div>
+        <a href="produkt.html?slug=${p.slug}" class="product-name">${p.name}</a>
+        <div class="product-stars">${stars(p.rating)} <span class="product-review-count">(${p.reviews})</span></div>
+        <div class="product-meta">${pHtml}<button class="btn-add-cart" onclick="addToCartById(${p.id},this)">🛒 In den Korb</button></div>
+      </div></article>`;
+  }).join('');
+  // Pagination
+  if(pgn&&total>1){
+    pgn.innerHTML=Array.from({length:total},(_,i)=>`<button class="page-btn${currentPage===i+1?' active':''}" onclick="gotoPage(${i+1})">${i+1}</button>`).join('');
+  } else if(pgn) pgn.innerHTML='';
+  initReveal();
+}
+
+function gotoPage(n){currentPage=n;applyFilters();window.scrollTo({top:0,behavior:'smooth'});}
+function setView(v){currentView=v;document.getElementById('gridViewBtn').classList.toggle('active',v==='grid');document.getElementById('listViewBtn').classList.toggle('active',v==='list');applyFilters();}
+</script>
+</body>
+</html>

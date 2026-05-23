@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<meta name="description" content="gastrowerke – Ihr Profi-Partner für Gastrogeräte, Edelstahlmöbel und Großküchentechnik. Über 3.000 Produkte, Top-Preise, schnelle Lieferung.">
+<title>gastrowerke – Profi Gastrogeräte &amp; Edelstahlmöbel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#1a2c3e;--primary-dark:#111e2b;--accent:#2a8dc4;--accent-light:#5ab0e0;--accent-pale:#daeef8;--accent-deep:#1b6fa0;--steel:#7aa3bb;--steel-light:#c0d8e8;--bg:#f0f6fb;--white:#ffffff;--text:#1e3044;--text-mid:#3a5570;--text-muted:#5a7a91;--border:#cde0ee;--border-light:#e4f0f8;--radius-sm:4px;--radius:8px;--radius-lg:14px;--radius-xl:22px;--shadow-xs:0 1px 4px rgba(26,44,62,.07);--shadow-sm:0 2px 10px rgba(26,44,62,.09);--shadow:0 4px 20px rgba(26,44,62,.11);--shadow-md:0 8px 32px rgba(26,44,62,.14);--shadow-lg:0 16px 56px rgba(26,44,62,.18);--trans-fast:.15s ease;--trans:.25s ease;--trans-slow:.4s ease;--header-h:72px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+ul{list-style:none}
+.container{max-width:1320px;margin:0 auto;padding:0 20px}
+.topbar{background:var(--primary-dark);color:var(--steel-light);font-size:12px;letter-spacing:.04em;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.topbar-left{display:flex;align-items:center;gap:6px;color:var(--steel)}
+.topbar-right{display:flex;align-items:center;gap:20px}
+.topbar-right a{color:var(--steel-light);transition:color var(--trans-fast);display:flex;align-items:center;gap:5px}
+.topbar-right a:hover{color:var(--accent-light)}
+header{background:var(--white);position:sticky;top:0;z-index:200;border-bottom:1px solid var(--border-light);box-shadow:var(--shadow-sm);transition:box-shadow var(--trans)}
+header.scrolled{box-shadow:var(--shadow-md)}
+.header-inner{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:20px;height:var(--header-h);padding:0 20px}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:.06em;color:var(--primary);white-space:nowrap;transition:opacity var(--trans-fast)}
+.logo em{color:var(--accent);font-style:normal}
+.logo:hover{opacity:.85}
+.search-wrap{flex:1;min-width:0;position:relative}
+.search-form{display:flex;align-items:center;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--radius-xl);overflow:visible;transition:border-color var(--trans-fast),box-shadow var(--trans-fast);position:relative}
+.search-form:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px rgba(42,141,196,.12)}
+.search-form input{flex:1;border:none;background:transparent;padding:11px 18px;font-size:14px;font-family:inherit;color:var(--text);outline:none;min-width:0;border-radius:var(--radius-xl) 0 0 var(--radius-xl)}
+.search-form input::placeholder{color:var(--text-muted)}
+.search-form button[type="submit"]{background:var(--accent);border:none;color:white;padding:11px 20px;font-size:16px;transition:background var(--trans-fast);flex-shrink:0;border-radius:0 var(--radius-xl) var(--radius-xl) 0}
+.search-form button[type="submit"]:hover{background:var(--accent-deep)}
+.search-dropdown{position:absolute;top:calc(100% + 6px);left:0;right:0;background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-md);z-index:500;max-height:400px;overflow-y:auto;display:none}
+.search-dropdown.open{display:block}
+.search-dropdown-header{padding:10px 16px 6px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border-light)}
+.search-result-item{display:flex;align-items:center;gap:12px;padding:10px 16px;cursor:pointer;transition:background var(--trans-fast);border-bottom:1px solid var(--border-light)}
+.search-result-item:last-child{border-bottom:none}
+.search-result-item:hover{background:var(--accent-pale)}
+.search-result-img{width:44px;height:44px;border-radius:var(--radius);background:#eef4f9;object-fit:cover;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px;overflow:hidden}
+.search-result-info{flex:1;min-width:0}
+.search-result-info strong{display:block;font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.search-result-info span{font-size:11px;color:var(--text-muted)}
+.search-result-price{font-size:14px;font-weight:800;color:var(--accent-deep);flex-shrink:0}
+.search-no-results{padding:20px 16px;text-align:center;color:var(--text-muted);font-size:14px}
+.mobile-search-bar{display:none;background:var(--white);padding:10px 16px 12px;border-bottom:1px solid var(--border-light)}
+.mobile-search-bar .search-form{background:var(--bg)}
+.header-actions{display:flex;align-items:center;gap:6px}
+.hdr-btn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 10px;border:none;background:transparent;color:var(--text-mid);font-size:11px;font-weight:500;letter-spacing:.03em;border-radius:var(--radius);transition:background var(--trans-fast),color var(--trans-fast);white-space:nowrap;position:relative}
+.hdr-btn .icon{font-size:20px}
+.hdr-btn:hover{background:var(--accent-pale);color:var(--accent-deep)}
+.hdr-btn-cart{background:var(--accent);color:white;padding:10px 16px;border-radius:var(--radius-xl);flex-direction:row;gap:8px;font-size:13px;font-weight:600;position:relative}
+.hdr-btn-cart .icon{font-size:18px}
+.hdr-btn-cart:hover{background:var(--accent-deep)}
+.cart-badge{position:absolute;top:-4px;right:-4px;background:#e63946;color:white;font-size:10px;font-weight:700;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid var(--white)}
+.wish-badge{position:absolute;top:-4px;right:-4px;background:#e63946;color:white;font-size:10px;font-weight:700;width:18px;height:18px;border-radius:50%;display:none;align-items:center;justify-content:center;border:2px solid var(--white)}
+.mobile-toggle{display:none;background:none;border:none;color:var(--primary);font-size:24px;padding:8px;flex-shrink:0}
+.main-nav{background:var(--primary);position:relative;z-index:190}
+.nav-inner{display:flex;align-items:center;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.nav-inner::-webkit-scrollbar{display:none}
+.nav-link{display:flex;align-items:center;gap:5px;padding:14px 17px;color:rgba(255,255,255,.8);font-size:13px;font-weight:500;letter-spacing:.03em;white-space:nowrap;transition:background var(--trans-fast),color var(--trans-fast);border-bottom:2px solid transparent}
+.nav-link:hover{background:rgba(255,255,255,.06);color:var(--accent-light)}
+.nav-link.active{color:var(--accent-light);border-bottom-color:var(--accent)}
+.nav-badge{background:#e63946;color:white;font-size:9px;font-weight:700;padding:2px 5px;border-radius:3px;letter-spacing:.06em;text-transform:uppercase}
+.nav-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;opacity:0;transition:opacity var(--trans)}
+.nav-overlay.open{display:block;opacity:1}
+.nav-drawer{position:fixed;top:0;left:-340px;width:320px;height:100%;background:var(--white);z-index:301;overflow-y:auto;transition:left var(--trans-slow);box-shadow:var(--shadow-lg);-webkit-overflow-scrolling:touch}
+.nav-drawer.open{left:0}
+.drawer-header{display:flex;align-items:center;justify-content:space-between;padding:20px;border-bottom:1px solid var(--border-light);background:var(--primary)}
+.drawer-logo{font-family:'Bebas Neue',sans-serif;font-size:24px;color:white;letter-spacing:.06em}
+.drawer-logo em{color:var(--accent-light);font-style:normal}
+.drawer-close{background:none;border:none;color:white;font-size:22px;cursor:pointer;padding:4px;border-radius:var(--radius-sm);transition:background var(--trans-fast)}
+.drawer-close:hover{background:rgba(255,255,255,.15)}
+.drawer-links a{display:flex;align-items:center;gap:10px;padding:15px 20px;font-size:15px;font-weight:500;color:var(--text);border-bottom:1px solid var(--border-light);transition:background var(--trans-fast),color var(--trans-fast)}
+.drawer-links a:hover{background:var(--accent-pale);color:var(--accent-deep)}
+.drawer-links a .dico{font-size:18px}
+.drawer-section-label{padding:12px 20px 6px;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);background:var(--bg)}
+.drawer-footer{padding:20px;border-top:1px solid var(--border-light);background:var(--bg)}
+.drawer-footer-links{display:flex;flex-wrap:wrap;gap:8px}
+.drawer-footer-links a{font-size:12px;color:var(--text-muted);padding:4px 8px;border-radius:4px;background:var(--white);border:1px solid var(--border-light)}
+.drawer-footer-links a:hover{color:var(--accent)}
+.hero{position:relative;overflow:hidden;background:var(--primary-dark)}
+.hero-slides{position:relative;height:520px}
+.hero-slide{position:absolute;inset:0;display:flex;align-items:center;opacity:0;transition:opacity .8s ease;pointer-events:none}
+.hero-slide.active{opacity:1;pointer-events:auto}
+.hero-slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
+.hero-slide-overlay{position:absolute;inset:0;background:linear-gradient(100deg,rgba(17,30,43,.88) 0%,rgba(17,30,43,.5) 55%,rgba(17,30,43,.1) 100%)}
+.hero-content{position:relative;z-index:2;padding:0 64px;max-width:600px;animation:heroUp .7s ease both}
+@keyframes heroUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(42,141,196,.2);border:1px solid rgba(90,176,224,.3);color:var(--accent-light);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:5px 14px;border-radius:50px;margin-bottom:20px;backdrop-filter:blur(4px)}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,6vw,72px);line-height:1;color:white;letter-spacing:.02em;margin-bottom:18px}
+.hero-title em{color:var(--accent-light);font-style:normal}
+.hero-sub{font-size:16px;color:rgba(255,255,255,.75);margin-bottom:32px;line-height:1.6;max-width:420px}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
+.btn-hero{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;background:var(--accent);color:white;font-size:14px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;border-radius:var(--radius-xl);border:none;transition:background var(--trans-fast),transform var(--trans-fast),box-shadow var(--trans-fast);box-shadow:0 4px 20px rgba(42,141,196,.4)}
+.btn-hero:hover{background:var(--accent-deep);transform:translateY(-2px);box-shadow:0 8px 28px rgba(42,141,196,.5)}
+.btn-hero-ghost{background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.3);backdrop-filter:blur(4px);box-shadow:none}
+.btn-hero-ghost:hover{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.5)}
+.hero-dots{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:5}
+.hero-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.35);border:none;cursor:pointer;transition:background var(--trans),transform var(--trans)}
+.hero-dot.active{background:var(--accent-light);transform:scale(1.3)}
+.hero-arrow{display:none!important}
+.usp-strip{background:var(--white);border-bottom:1px solid var(--border-light);box-shadow:var(--shadow-xs)}
+.usp-list{display:grid;grid-template-columns:repeat(4,1fr)}
+.usp-item{display:flex;align-items:center;gap:14px;padding:18px 24px;border-right:1px solid var(--border-light);transition:background var(--trans-fast)}
+.usp-item:last-child{border-right:none}
+.usp-item:hover{background:var(--accent-pale)}
+.usp-icon-box{width:44px;height:44px;background:var(--accent-pale);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.usp-text strong{display:block;font-size:13px;font-weight:700;color:var(--text)}
+.usp-text span{font-size:12px;color:var(--text-muted)}
+section{padding:60px 0}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:32px;gap:16px}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,3vw,40px);letter-spacing:.04em;color:var(--primary)}
+.section-title em{color:var(--accent);font-style:normal}
+.section-link{font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:4px;white-space:nowrap;transition:color var(--trans-fast)}
+.section-link:hover{color:var(--accent-deep)}
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px}
+.product-card{background:var(--white);border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border-light);box-shadow:var(--shadow-xs);transition:box-shadow var(--trans),transform var(--trans)}
+.product-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px)}
+.product-img-wrap{position:relative;aspect-ratio:1/1;overflow:hidden;background:#eef4f9}
+.product-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform var(--trans-slow)}
+.product-card:hover .product-img-wrap img{transform:scale(1.06)}
+.product-badges{position:absolute;top:10px;left:10px;display:flex;gap:5px;flex-direction:column}
+.badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:3px;letter-spacing:.06em;text-transform:uppercase}
+.badge-sale{background:#e63946;color:white}
+.badge-new{background:var(--accent);color:white}
+.badge-hot{background:#f4a261;color:white}
+.badge-top{background:#2a9d8f;color:white}
+.product-wishlist{position:absolute;top:10px;right:10px;width:34px;height:34px;border-radius:50%;background:white;border:1px solid var(--border-light);font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform var(--trans-fast),box-shadow var(--trans-fast);box-shadow:var(--shadow-xs)}
+.product-wishlist:hover,.product-wishlist.wished{transform:scale(1.15);box-shadow:var(--shadow-sm)}
+.product-body{padding:14px}
+.product-category{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:5px}
+.product-name{font-size:13px;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:8px;display:block;transition:color var(--trans-fast)}
+.product-name:hover{color:var(--accent)}
+.product-stars{font-size:12px;color:#f4a261;margin-bottom:8px}
+.product-review-count{color:var(--text-muted);font-size:11px}
+.product-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.product-price{font-size:16px;font-weight:800;color:var(--accent-deep)}
+.product-price-old{font-size:12px;color:var(--text-muted);text-decoration:line-through;margin-left:5px}
+.btn-add-cart{background:var(--accent);color:white;border:none;padding:8px 14px;border-radius:var(--radius-xl);font-size:12px;font-weight:600;display:flex;align-items:center;gap:5px;transition:background var(--trans-fast),transform var(--trans-fast);white-space:nowrap}
+.btn-add-cart:hover{background:var(--accent-deep);transform:scale(1.04)}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.cat-card{position:relative;border-radius:var(--radius-lg);overflow:hidden;aspect-ratio:4/3;cursor:pointer;transition:transform var(--trans),box-shadow var(--trans)}
+.cat-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+.cat-card img{width:100%;height:100%;object-fit:cover;transition:transform var(--trans-slow)}
+.cat-card:hover img{transform:scale(1.07)}
+.cat-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(17,30,43,.75) 0%,transparent 60%);display:flex;align-items:flex-end;padding:16px}
+.cat-card-label{font-family:'Bebas Neue',sans-serif;font-size:20px;color:white;letter-spacing:.06em}
+.cat-card-count{display:block;font-size:11px;color:rgba(255,255,255,.7);margin-top:2px}
+.bestseller-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
+.trust-section{background:var(--primary);color:white;padding:48px 0}
+.trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px}
+.trust-item{text-align:center}
+.trust-icon{font-size:36px;margin-bottom:12px}
+.trust-title{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.06em;margin-bottom:8px;color:var(--accent-light)}
+.trust-text{font-size:13px;color:rgba(255,255,255,.65);line-height:1.6}
+.newsletter-section{background:linear-gradient(135deg,var(--accent-deep) 0%,var(--primary) 100%);padding:56px 0;text-align:center}
+.newsletter-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,44px);color:white;letter-spacing:.04em;margin-bottom:12px}
+.newsletter-sub{color:rgba(255,255,255,.75);margin-bottom:28px;font-size:15px}
+.newsletter-form{display:flex;gap:10px;max-width:480px;margin:0 auto;justify-content:center;flex-wrap:wrap}
+.newsletter-form input{flex:1;min-width:220px;padding:13px 20px;border-radius:var(--radius-xl);border:none;font-size:14px;font-family:inherit;outline:none}
+.newsletter-form button{background:white;color:var(--accent-deep);font-weight:700;padding:13px 28px;border-radius:var(--radius-xl);border:none;font-size:14px;font-family:inherit;transition:transform var(--trans-fast)}
+.newsletter-form button:hover{transform:scale(1.04)}
+footer{background:var(--primary-dark);color:var(--steel-light);padding:56px 0 0}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px}
+.footer-brand{font-family:'Bebas Neue',sans-serif;font-size:26px;color:white;letter-spacing:.06em;margin-bottom:12px}
+.footer-brand em{color:var(--accent-light);font-style:normal}
+.footer-desc{font-size:13px;color:rgba(255,255,255,.55);line-height:1.7;margin-bottom:20px}
+.footer-col-title{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-light);margin-bottom:16px}
+.footer-links li{margin-bottom:9px}
+.footer-links a{font-size:13px;color:rgba(255,255,255,.55);transition:color var(--trans-fast)}
+.footer-links a:hover{color:var(--accent-light)}
+.footer-contact li{display:flex;gap:8px;font-size:13px;color:rgba(255,255,255,.55);margin-bottom:9px;align-items:flex-start}
+.footer-contact li span:first-child{font-size:16px;flex-shrink:0;margin-top:1px}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding:20px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.footer-copy{font-size:12px;color:rgba(255,255,255,.35)}
+.footer-legal{display:flex;gap:16px}
+.footer-legal a{font-size:12px;color:rgba(255,255,255,.35);transition:color var(--trans-fast)}
+.footer-legal a:hover{color:var(--accent-light)}
+.back-to-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;border-radius:50%;background:var(--accent);color:white;font-size:20px;border:none;box-shadow:var(--shadow-md);cursor:pointer;opacity:0;pointer-events:none;transition:opacity var(--trans),transform var(--trans);z-index:150;display:flex;align-items:center;justify-content:center}
+.back-to-top.visible{opacity:1;pointer-events:auto}
+.back-to-top:hover{transform:translateY(-3px)}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+/* CART SIDEBAR */
+.cart-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:400;opacity:0;transition:opacity var(--trans)}
+.cart-overlay.open{display:block;opacity:1}
+.cart-sidebar{position:fixed;top:0;right:-420px;width:400px;max-width:100vw;height:100%;background:var(--white);z-index:401;box-shadow:var(--shadow-lg);transition:right var(--trans-slow);display:flex;flex-direction:column;overflow:hidden}
+.cart-sidebar.open{right:0}
+.cart-sidebar-header{display:flex;align-items:center;justify-content:space-between;padding:20px;border-bottom:1px solid var(--border-light);background:var(--primary)}
+.cart-sidebar-header h3{font-family:'Bebas Neue',sans-serif;font-size:22px;color:white;letter-spacing:.06em}
+.cart-sidebar-close{background:none;border:none;color:white;font-size:22px;cursor:pointer}
+.cart-sidebar-items{flex:1;overflow-y:auto;padding:16px;-webkit-overflow-scrolling:touch}
+.cart-sidebar-item{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--border-light)}
+.cart-sidebar-img{width:72px;height:72px;border-radius:var(--radius);background:#eef4f9;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:28px}
+.cart-sidebar-img img{width:100%;height:100%;object-fit:cover}
+.cart-sidebar-info{flex:1;min-width:0}
+.cart-sidebar-name{font-size:13px;font-weight:600;color:var(--text);display:block;margin-bottom:4px;line-height:1.3}
+.cart-sidebar-price{font-size:15px;font-weight:700;color:var(--accent-deep);margin-bottom:8px}
+.cart-qty-row{display:flex;align-items:center;gap:6px}
+.qty-btn{width:28px;height:28px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg);font-size:16px;display:flex;align-items:center;justify-content:center;transition:background var(--trans-fast)}
+.qty-btn:hover{background:var(--accent-pale)}
+.qty-input{width:44px;height:28px;border:1px solid var(--border);border-radius:var(--radius-sm);text-align:center;font-size:13px;font-family:inherit;background:var(--white)}
+.cart-remove-btn{background:none;border:none;color:var(--text-muted);font-size:16px;padding:4px;border-radius:var(--radius-sm);transition:color var(--trans-fast);margin-left:4px}
+.cart-remove-btn:hover{color:#e63946}
+.cart-sidebar-footer{border-top:1px solid var(--border-light);padding:16px 20px;background:var(--bg)}
+.cart-sidebar-totals{font-size:13px;margin-bottom:12px}
+.cart-sidebar-totals-row{display:flex;justify-content:space-between;padding:4px 0}
+.cart-sidebar-totals-row.total{font-size:16px;font-weight:800;color:var(--text);border-top:1px solid var(--border);margin-top:8px;padding-top:10px}
+.btn-go-checkout{display:block;width:100%;padding:14px;background:var(--accent);color:white;text-align:center;border-radius:var(--radius-xl);font-size:14px;font-weight:700;letter-spacing:.04em;transition:background var(--trans-fast);margin-bottom:8px}
+.btn-go-checkout:hover{background:var(--accent-deep)}
+.btn-go-cart{display:block;width:100%;padding:11px;border:1.5px solid var(--border);background:transparent;color:var(--text-mid);text-align:center;border-radius:var(--radius-xl);font-size:13px;font-weight:600;transition:background var(--trans-fast)}
+.btn-go-cart:hover{background:var(--accent-pale)}
+.cart-empty-state{text-align:center;padding:40px 20px;color:var(--text-muted)}
+.cart-empty-state strong{display:block;font-size:16px;font-weight:700;color:var(--text);margin-bottom:8px}
+.cart-empty-state p{font-size:13px}
+@media(max-width:1100px){.footer-grid{grid-template-columns:1fr 1fr}.trust-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:860px){
+  .usp-list{grid-template-columns:repeat(2,1fr)}
+  .header-inner{grid-template-columns:auto 1fr auto;gap:8px}
+  .search-wrap{display:none}
+  .mobile-toggle{display:flex}
+  .cart-sidebar{width:100%;right:-100%}
+  .hdr-btn span:not(.icon):not(.cart-badge):not(.wish-badge){display:none}
+  .header-actions{display:flex;align-items:center;gap:4px}
+  .hdr-btn{padding:8px;min-width:40px}
+}
+@media(max-width:640px){
+  .hero-slides{height:300px}
+  .hero-content{padding:0 16px}
+  .hero-content h1{font-size:clamp(24px,7vw,40px)}
+  .usp-list{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .mobile-search-bar{display:block}
+  .trust-grid{grid-template-columns:1fr 1fr}
+  .product-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .bestseller-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .cat-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .newsletter-form{flex-direction:column}
+  .newsletter-form input,.newsletter-form button{width:100%}
+  .topbar{display:none}
+  .container{padding:0 12px}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="container">
+    <div class="topbar-inner">
+      <div class="topbar-left">📞 +49 (0) 631 / 123 45 67 &nbsp;|&nbsp; Mo–Fr 8–17 Uhr</div>
+      <div class="topbar-right">
+        <a href="preisliste.html">📋 Preisliste</a>
+        <a href="versand.html">📦 Versand</a>
+        <a href="kontakt.html">✉ Kontakt</a>
+        <a href="login.html" class="hdr-login-link">👤 Login</a>
+        <a href="konto.html" class="hdr-account-link" style="display:none">👤 Konto</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header id="main-header">
+  <div class="header-inner container">
+    <a href="index.html" class="logo">gastro<em>werke</em></a>
+    <div class="search-wrap">
+      <form class="search-form" id="searchForm" role="search">
+        <input type="search" id="searchInput" placeholder="Produkt, Kategorie oder SKU suchen …" autocomplete="off" aria-label="Suche">
+        <button type="submit" aria-label="Suche starten">🔍</button>
+      </form>
+      <div class="search-dropdown" id="searchDropdown" role="listbox"></div>
+    </div>
+    <div class="header-actions">
+      <button class="hdr-btn" id="mobileSearchToggle" title="Suche" style="display:none"><span class="icon">🔍</span><span>Suche</span></button>
+      <a href="wishlist.html" class="hdr-btn" title="Wunschliste" style="position:relative"><span class="icon">♡</span><span>Wunschliste</span><span class="wish-badge" id="wishBadge">0</span></a>
+      <a href="login.html" class="hdr-btn hdr-login-link" title="Anmelden"><span class="icon">👤</span><span>Konto</span></a>
+      <a href="konto.html" class="hdr-btn hdr-account-link" title="Mein Konto" style="display:none"><span class="icon">👤</span><span>Konto</span></a>
+      <button class="hdr-btn hdr-btn-cart" id="cartBtn" title="Warenkorb öffnen"><span class="icon">🛒</span><span>Warenkorb</span><span class="cart-badge" id="cartBadge">0</span></button>
+      <button class="mobile-toggle" id="menuToggle" aria-label="Menü öffnen" aria-expanded="false">☰</button>
+    </div>
+  </div>
+  <div class="mobile-search-bar" id="mobileSearchBar">
+    <div class="container">
+      <form class="search-form" id="mobileSearchForm">
+        <input type="search" id="mobileSearchInput" placeholder="Produkt suchen …" autocomplete="off">
+        <button type="submit">🔍</button>
+      </form>
+      <div class="search-dropdown" id="mobileSearchDropdown"></div>
+    </div>
+  </div>
+</header>
+
+<!-- MAIN NAV -->
+<nav class="main-nav" aria-label="Hauptnavigation">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-link active">🏠 Start</a>
+      <a href="kategorie.html?cat=Edelstahlmöbel" class="nav-link">🔩 Edelstahlmöbel</a>
+      <a href="kategorie.html?cat=Gastrotechnik" class="nav-link">🍳 Gastrotechnik</a>
+      <a href="kategorie.html?cat=Kühlung+%26+Tiefkühl" class="nav-link">❄️ Kühlung</a>
+      <a href="kategorie.html?sale=true" class="nav-link">🔥 SALE <span class="nav-badge">SALE</span></a>
+      <a href="kategorie.html?new=true" class="nav-link">✨ Neuheiten</a>
+      <a href="preisliste.html" class="nav-link">📋 Preisliste</a>
+      <a href="ueber-uns.html" class="nav-link">ℹ️ Über uns</a>
+      <a href="kontakt.html" class="nav-link">✉ Kontakt</a>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE DRAWER -->
+<div class="nav-overlay" id="navOverlay" aria-hidden="true"></div>
+<nav class="nav-drawer" id="navDrawer" aria-label="Mobile Navigation">
+  <div class="drawer-header">
+    <div class="drawer-logo">gastro<em>werke</em></div>
+    <button class="drawer-close" id="drawerClose" aria-label="Menü schließen">✕</button>
+  </div>
+  <div class="drawer-links">
+    <a href="index.html"><span class="dico">🏠</span> Startseite</a>
+    <div class="drawer-section-label">Kategorien</div>
+    <a href="kategorie.html?cat=Edelstahlmöbel"><span class="dico">🔩</span> Edelstahlmöbel</a>
+    <a href="kategorie.html?cat=Gastrotechnik"><span class="dico">🍳</span> Gastrotechnik</a>
+    <a href="kategorie.html?cat=Kühlung+%26+Tiefkühl"><span class="dico">❄️</span> Kühlung & Tiefkühl</a>
+    <a href="kategorie.html?sale=true"><span class="dico">🔥</span> SALE</a>
+    <a href="kategorie.html?new=true"><span class="dico">✨</span> Neuheiten</a>
+    <div class="drawer-section-label">Service</div>
+    <a href="preisliste.html"><span class="dico">📋</span> Preisliste</a>
+    <a href="ueber-uns.html"><span class="dico">ℹ️</span> Über uns</a>
+    <a href="kontakt.html"><span class="dico">✉</span> Kontakt</a>
+    <a href="wishlist.html"><span class="dico">♡</span> Wunschliste</a>
+    <a href="cart.html"><span class="dico">🛒</span> Warenkorb</a>
+    <a href="login.html" class="hdr-login-link"><span class="dico">👤</span> Anmelden</a>
+    <a href="konto.html" class="hdr-account-link" style="display:none"><span class="dico">👤</span> Mein Konto</a>
+  </div>
+  <div class="drawer-footer">
+    <div class="drawer-footer-links">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <a href="agb.html">AGB</a>
+      <a href="widerrufsrecht.html">Widerrufsrecht</a>
+    </div>
+  </div>
+</nav>
+
+<!-- CART SIDEBAR -->
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart-sidebar" id="cartSidebar" aria-label="Warenkorb">
+  <div class="cart-sidebar-header">
+    <h3>🛒 Warenkorb</h3>
+    <button class="cart-sidebar-close" id="closeSidebar" aria-label="Warenkorb schließen">✕</button>
+  </div>
+  <div class="cart-sidebar-items" id="cartSidebarItems"></div>
+  <div class="cart-sidebar-footer">
+    <div class="cart-sidebar-totals">
+      <div class="cart-sidebar-totals-row"><span>Netto</span><span id="csNetVal">0,00 €</span></div>
+      <div class="cart-sidebar-totals-row"><span>Versand</span><span id="csShipVal">–</span></div>
+      <div class="cart-sidebar-totals-row total"><span>Gesamt</span><span id="csTotalVal">0,00 €</span></div>
+    </div>
+    <a href="checkout.html" class="btn-go-checkout">Zur Kasse →</a>
+    <a href="cart.html" class="btn-go-cart">Warenkorb anzeigen</a>
+  </div>
+</aside>
+
+<!-- HERO -->
+<section class="hero" aria-label="Hero-Slider">
+  <div class="hero-slides">
+    <div class="hero-slide active">
+      <img src="homepage gastrowerke/Arbeitstisch  mit Grundboden, 1000 x 600 mm.jpg" alt="Edelstahlmöbel für die Profiküche" loading="eager">
+      <div class="hero-slide-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-eyebrow">⭐ Top-Qualität für die Gastronomie</div>
+        <h1 class="hero-title">Profi-Küchen<em>ausstattung</em><br>für Gastronomie</h1>
+        <p class="hero-sub">Über 3.000 Produkte – Edelstahlmöbel, Großküchentechnik und Kühlung direkt vom Fachhändler.</p>
+        <div class="hero-ctas">
+          <a href="kategorie.html" class="btn-hero">Alle Produkte</a>
+          <a href="kategorie.html?sale=true" class="btn-hero btn-hero-ghost">🔥 Aktuelle Angebote</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-slide">
+      <img src="homepage gastrowerke/Gasherd - 4 Brenner 28,8 kW - offener Unterbau, 700 x 700 mm.jpg" alt="Gasherde für Profis" loading="lazy">
+      <div class="hero-slide-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-eyebrow">🔥 Gastrotechnik</div>
+        <h1 class="hero-title">Leistungs<em>starke</em><br>Gasherde</h1>
+        <p class="hero-sub">Professionelle Gasherde und Kochfelder für Restaurants, Kantinen und Großküchen.</p>
+        <div class="hero-ctas">
+          <a href="kategorie.html?cat=Gastrotechnik" class="btn-hero">Gastrotechnik entdecken</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-slide">
+      <img src="homepage gastrowerke/Kühlschrank.jpg" alt="Kühltechnik für Gastronomie" loading="lazy">
+      <div class="hero-slide-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-eyebrow">❄️ Kühlung & Tiefkühl</div>
+        <h1 class="hero-title">Zuverlässige<br><em>Kühltechnik</em></h1>
+        <p class="hero-sub">Kühlschränke, Tiefkühlgeräte und Kühlvitrinen – energieeffizient und für den Dauerbetrieb ausgelegt.</p>
+        <div class="hero-ctas">
+          <a href="kategorie.html?cat=Kühlung+%26+Tiefkühl" class="btn-hero">Kühlung entdecken</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="hero-arrow prev" aria-label="Vorheriger Slide">&#8249;</button>
+  <button class="hero-arrow next" aria-label="Nächster Slide">&#8250;</button>
+  <div class="hero-dots" role="tablist">
+    <button class="hero-dot active" role="tab" aria-label="Slide 1"></button>
+    <button class="hero-dot" role="tab" aria-label="Slide 2"></button>
+    <button class="hero-dot" role="tab" aria-label="Slide 3"></button>
+  </div>
+</section>
+
+<!-- USP STRIP -->
+<div class="usp-strip">
+  <div class="container">
+    <ul class="usp-list">
+      <li class="usp-item"><div class="usp-icon-box">🚚</div><div class="usp-text"><strong>Kostenloser Versand</strong><span>Ab 100 € Bestellwert</span></div></li>
+      <li class="usp-item"><div class="usp-icon-box">⭐</div><div class="usp-text"><strong>Top-Qualität</strong><span>CE-zertifizierte Produkte</span></div></li>
+      <li class="usp-item"><div class="usp-icon-box">🔒</div><div class="usp-text"><strong>Sicher bezahlen</strong><span>SSL & PayPal geschützt</span></div></li>
+      <li class="usp-item"><div class="usp-icon-box">↩</div><div class="usp-text"><strong>30 Tage Rückgabe</strong><span>Einfach & unkompliziert</span></div></li>
+    </ul>
+  </div>
+</div>
+
+<!-- KATEGORIEN -->
+<section>
+  <div class="container">
+    <div class="section-head reveal">
+      <h2 class="section-title">Unsere <em>Kategorien</em></h2>
+      <a href="kategorie.html" class="section-link">Alle ansehen →</a>
+    </div>
+    <div class="cat-grid">
+      <a href="kategorie.html?cat=Edelstahlmöbel" class="cat-card reveal">
+        <img src="homepage gastrowerke/Arbeitstisch  mit Grundboden, 1000 x 600 mm.jpg" alt="Edelstahlmöbel">
+        <div class="cat-card-overlay"><div><div class="cat-card-label">Edelstahlmöbel</div><span class="cat-card-count">Arbeitstische, Regale, Spültische</span></div></div>
+      </a>
+      <a href="kategorie.html?cat=Gastrotechnik" class="cat-card reveal">
+        <img src="homepage gastrowerke/Gasherd - 4 Brenner 28,8 kW - offener Unterbau, 700 x 700 mm.jpg" alt="Gastrotechnik">
+        <div class="cat-card-overlay"><div><div class="cat-card-label">Gastrotechnik</div><span class="cat-card-count">Herde, Fritteusen, Maschinen</span></div></div>
+      </a>
+      <a href="kategorie.html?cat=Kühlung+%26+Tiefkühl" class="cat-card reveal">
+        <img src="homepage gastrowerke/Kühlschrank.jpg" alt="Kühlung">
+        <div class="cat-card-overlay"><div><div class="cat-card-label">Kühlung & Tiefkühl</div><span class="cat-card-count">Kühlschränke, Tiefkühler, Vitrinen</span></div></div>
+      </a>
+      <a href="kategorie.html?sale=true" class="cat-card reveal">
+        <img src="homepage gastrowerke/Elektro Fritteuse.jpg" alt="Sale Angebote">
+        <div class="cat-card-overlay" style="background:linear-gradient(to top,rgba(230,57,70,.8) 0%,transparent 70%)"><div><div class="cat-card-label">🔥 SALE</div><span class="cat-card-count">Aktuelle Sonderangebote</span></div></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PRODUKTE -->
+<section style="background:var(--white);padding:60px 0">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2 class="section-title">Empfohlene <em>Produkte</em></h2>
+      <a href="kategorie.html" class="section-link">Alle Produkte →</a>
+    </div>
+    <div class="product-grid" id="product-grid"></div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<div class="trust-section">
+  <div class="container">
+    <div class="trust-grid">
+      <div class="trust-item reveal"><div class="trust-icon">🏭</div><div class="trust-title">Direktimport</div><p class="trust-text">Wir beziehen unsere Produkte direkt von Herstellern und geben die Ersparnisse an Sie weiter.</p></div>
+      <div class="trust-item reveal"><div class="trust-icon">📦</div><div class="trust-title">Schnelle Lieferung</div><p class="trust-text">Lagerware wird innerhalb von 1–5 Werktagen zu Ihnen geliefert – deutschlandweit.</p></div>
+      <div class="trust-item reveal"><div class="trust-icon">🔧</div><div class="trust-title">Fachberatung</div><p class="trust-text">Unser Expertenteam berät Sie gerne telefonisch oder per E-Mail bei der Produktauswahl.</p></div>
+      <div class="trust-item reveal"><div class="trust-icon">↩</div><div class="trust-title">30 Tage Rückgabe</div><p class="trust-text">Nicht zufrieden? Kein Problem – wir nehmen Ihre Ware innerhalb von 30 Tagen zurück.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- BESTSELLER -->
+<section>
+  <div class="container">
+    <div class="section-head reveal">
+      <h2 class="section-title">Best<em>seller</em></h2>
+      <a href="kategorie.html?topSeller=true" class="section-link">Alle Bestseller →</a>
+    </div>
+    <div class="bestseller-grid" id="bestseller-grid"></div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<div class="newsletter-section">
+  <div class="container">
+    <h2 class="newsletter-title reveal">Newsletter – Immer informiert!</h2>
+    <p class="newsletter-sub reveal">Erhalten Sie exklusive Angebote, Neuheiten und Gastronomie-Tipps direkt in Ihr Postfach.</p>
+    <form class="newsletter-form reveal" id="newsletterForm">
+      <input type="email" placeholder="Ihre E-Mail-Adresse" required aria-label="E-Mail für Newsletter">
+      <button type="submit">Jetzt anmelden</button>
+    </form>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">gastro<em>werke</em></div>
+        <p class="footer-desc">Ihr Profi-Partner für Gastrogeräte, Edelstahlmöbel und Großküchentechnik. Über 3.000 Artikel für Restaurants, Hotels und Großküchen.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <span style="background:rgba(255,255,255,.08);padding:6px 12px;border-radius:6px;font-size:12px">🔒 SSL</span>
+          <span style="background:rgba(255,255,255,.08);padding:6px 12px;border-radius:6px;font-size:12px">💳 PayPal</span>
+          <span style="background:rgba(255,255,255,.08);padding:6px 12px;border-radius:6px;font-size:12px">📦 DHL</span>
+          <span style="background:rgba(255,255,255,.08);padding:6px 12px;border-radius:6px;font-size:12px">↩ 30T Rückgabe</span>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Shop</div>
+        <ul class="footer-links">
+          <li><a href="kategorie.html">Alle Produkte</a></li>
+          <li><a href="kategorie.html?sale=true">Sale</a></li>
+          <li><a href="kategorie.html?new=true">Neuheiten</a></li>
+          <li><a href="preisliste.html">Preisliste</a></li>
+          <li><a href="wishlist.html">Wunschliste</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Service</div>
+        <ul class="footer-links">
+          <li><a href="ueber-uns.html">Über uns</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+          <li><a href="konditionen.html">Konditionen</a></li>
+          <li><a href="agb.html">AGB</a></li>
+          <li><a href="widerrufsrecht.html">Widerrufsrecht</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Kontakt</div>
+        <ul class="footer-contact">
+          <li><span>📍</span><span>Industriestraße 14<br>66482 Zweibrücken</span></li>
+          <li><span>📞</span><span>+49 (0) 176 / 422 422 99</span></li>
+          <li><span>✉</span><span>info@gastrowerke.de</span></li>
+          <li><span>🕐</span><span>Mo–Fr: 8:00–17:00 Uhr</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2024 gastrowerke GmbH. Alle Rechte vorbehalten.</span>
+      <nav class="footer-legal" aria-label="Rechtliche Links">
+        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html">Datenschutz</a>
+        <a href="agb.html">AGB</a>
+        <a href="widerrufsrecht.html">Widerrufsrecht</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="Nach oben">↑</button>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="supabase.js"></script>
+<script src="app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const products = window._gwProducts || await (async()=>{const r=await fetch('products.json');return r.json();})();
+  window._gwProducts = products;
+
+  function fmt(p){return p.toLocaleString('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';}
+  function starsHtml(r){let s='';const f=Math.floor(r);for(let i=0;i<f;i++)s+='★';if(r-f>=.5)s+='½';while((s.replace(/½/g,'').length+(s.includes('½')?1:0))<5)s+='☆';return s;}
+
+  function buildCard(p){
+    const bCls={sale:'badge-sale',new:'badge-new',hot:'badge-hot',top:'badge-top'}[p.badge]||'';
+    const bHtml=p.badge?`<div class="product-badges"><span class="badge ${bCls}">${p.badgeLabel}</span></div>`:'';
+    const pHtml=p.oldPrice?`<div><span class="product-price">${fmt(p.price)}</span><span class="product-price-old">${fmt(p.oldPrice)}</span></div>`:`<span class="product-price">${fmt(p.price)}</span>`;
+    const w=JSON.parse(localStorage.getItem('gw_wishlist')||'[]').includes(p.id);
+    return `<article class="product-card reveal">
+      <a href="produkt.html?slug=${p.slug}"><div class="product-img-wrap">
+        <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.src='snowflake.svg'">${bHtml}
+        <button class="product-wishlist${w?' wished':''}" onclick="event.preventDefault();toggleWishById(${p.id},this)">${w?'❤️':'♡'}</button>
+      </div></a>
+      <div class="product-body">
+        <div class="product-category">${p.category}</div>
+        <a href="produkt.html?slug=${p.slug}" class="product-name">${p.name}</a>
+        <div class="product-stars">${starsHtml(p.rating)} <span class="product-review-count">(${p.reviews})</span></div>
+        <div class="product-meta">${pHtml}<button class="btn-add-cart" onclick="addToCartById(${p.id},this)">🛒 In den Korb</button></div>
+      </div></article>`;
+  }
+
+  const pgEl = document.getElementById('product-grid');
+  const bsEl = document.getElementById('bestseller-grid');
+  if(pgEl) pgEl.innerHTML = products.filter(p=>p.featured).slice(0,8).map(buildCard).join('');
+  if(bsEl) bsEl.innerHTML = products.filter(p=>p.topSeller).slice(0,4).map(buildCard).join('');
+  initReveal();
+
+  // Hero slider
+  const slides=document.querySelectorAll('.hero-slide'),dots=document.querySelectorAll('.hero-dot');
+  let cur=0,ht;
+  function goTo(n){slides[cur].classList.remove('active');dots[cur].classList.remove('active');cur=(n+slides.length)%slides.length;slides[cur].classList.add('active');dots[cur].classList.add('active');}
+  function startA(){ht=setInterval(()=>goTo(cur+1),5500);}function resetA(){clearInterval(ht);startA();}
+  document.querySelector('.hero-arrow.next')?.addEventListener('click',()=>{goTo(cur+1);resetA();});
+  document.querySelector('.hero-arrow.prev')?.addEventListener('click',()=>{goTo(cur-1);resetA();});
+  dots.forEach((d,i)=>d.addEventListener('click',()=>{goTo(i);resetA();}));
+  startA();
+
+  // Sidebar refs
+  document.querySelector('#cartSidebar .cart-sidebar-items').id='cartSidebarItems';
+
+  // Newsletter
+  document.getElementById('newsletterForm')?.addEventListener('submit',e=>{e.preventDefault();showToast('✓ Erfolgreich angemeldet! Willkommen beim gastrowerke-Newsletter.');e.target.reset();});
+
+  // Update sidebar inner IDs for mini cart
+  const csItems=document.getElementById('cartSidebarItems');
+  if(!csItems){const el=document.querySelector('#cartSidebar .cart-sidebar-items');if(el)el.id='cartSidebarItems';}
+  const csTotEl=document.querySelector('.cart-sidebar-totals');
+  if(csTotEl){csTotEl.innerHTML=`<div class="cart-sidebar-totals-row"><span>Netto</span><span class="cart-sidebar-net-val">–</span></div><div class="cart-sidebar-totals-row"><span>Versand</span><span class="cart-sidebar-shipping-val">–</span></div><div class="cart-sidebar-totals-row total"><span>Gesamt</span><span class="cart-sidebar-total-val">–</span></div>`;}
+  updateMiniCart();
+});
+</script>
+</body>
+</html>

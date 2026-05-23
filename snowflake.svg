@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <rect width="32" height="32" fill="#daeef8"/>
+  <!-- Center vertical -->
+  <rect x="15" y="2" width="2" height="28" fill="#2a8dc4"/>
+  <!-- Center horizontal -->
+  <rect x="2" y="15" width="28" height="2" fill="#2a8dc4"/>
+  <!-- Diagonal 1 -->
+  <line x1="5" y1="5" x2="27" y2="27" stroke="#2a8dc4" stroke-width="2"/>
+  <!-- Diagonal 2 -->
+  <line x1="27" y1="5" x2="5" y2="27" stroke="#2a8dc4" stroke-width="2"/>
+  <!-- Top branches -->
+  <rect x="12" y="5" width="2" height="4" fill="#2a8dc4"/>
+  <rect x="18" y="5" width="2" height="4" fill="#2a8dc4"/>
+  <!-- Bottom branches -->
+  <rect x="12" y="23" width="2" height="4" fill="#2a8dc4"/>
+  <rect x="18" y="23" width="2" height="4" fill="#2a8dc4"/>
+  <!-- Left branches -->
+  <rect x="5" y="12" width="4" height="2" fill="#2a8dc4"/>
+  <rect x="5" y="18" width="4" height="2" fill="#2a8dc4"/>
+  <!-- Right branches -->
+  <rect x="23" y="12" width="4" height="2" fill="#2a8dc4"/>
+  <rect x="23" y="18" width="4" height="2" fill="#2a8dc4"/>
+  <!-- Center diamond -->
+  <rect x="14" y="14" width="4" height="4" fill="#1b6fa0"/>
+</svg>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<meta name="description" content="Meine Wunschliste bei gastrowerke – Gespeicherte Produkte für Gastrotechnik und Edelstahlmöbel.">
+<title>Wunschliste – gastrowerke</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+.wishlist-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:12px}
+.wishlist-actions{display:flex;gap:10px;flex-wrap:wrap}
+.cart-empty-full{text-align:center;padding:80px 20px;color:var(--text-muted)}
+.cart-empty-full .cart-empty-icon{font-size:72px;margin-bottom:20px}
+.cart-empty-full h2{font-size:24px;font-weight:700;color:var(--text);margin-bottom:10px}
+.cart-empty-full p{font-size:15px;margin-bottom:24px}
+</style>
+</head>
+<body>
+
+<div id="gw-header-root"></div>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb">
+      <a href="index.html">Start</a><span>›</span><span>Wunschliste</span>
+    </nav>
+    <h1 class="page-hero-title">Meine <em>Wunschliste</em> <span id="wishlist-count" style="font-size:22px;color:var(--accent-light)"></span></h1>
+    <p class="page-hero-sub">Gespeicherte Produkte – jederzeit abrufbar und direkt bestellbar.</p>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    <div class="wishlist-header">
+      <div style="font-size:14px;color:var(--text-muted)" id="wishlist-info"></div>
+      <div class="wishlist-actions">
+        <button id="addAllToCart" class="btn-primary">🛒 Alle in den Warenkorb</button>
+        <a href="kategorie.html" class="btn-secondary">Weiter stöbern</a>
+      </div>
+    </div>
+
+    <!-- Leerer Zustand -->
+    <div id="wishlist-empty" style="display:none">
+      <div class="cart-empty-full">
+        <div class="cart-empty-icon">♡</div>
+        <h2>Ihre Wunschliste ist leer</h2>
+        <p>Speichern Sie Produkte auf Ihrer Wunschliste, um sie später zu kaufen.<br>Klicken Sie auf das Herz-Symbol bei einem Produkt.</p>
+        <a href="kategorie.html" class="btn-primary-large">Produkte entdecken</a>
+      </div>
+    </div>
+
+    <!-- Produkte -->
+    <div id="wishlist-container"></div>
+  </div>
+</section>
+
+<div id="gw-footer-root"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="supabase.js"></script>
+<script src="layout.js"></script>
+<script src="pages-common.js"></script>
+<script src="wishlist-page.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  const cnt=document.getElementById('wishlist-count');
+  const info=document.getElementById('wishlist-info');
+  function updateInfo(){
+    const list=JSON.parse(localStorage.getItem('gw_wishlist')||'[]');
+    if(cnt)cnt.textContent=list.length>0?`(${list.length})`:' ';
+    if(info)info.textContent=list.length===0?'Keine gespeicherten Artikel':list.length===1?'1 gespeicherter Artikel':`${list.length} gespeicherte Artikel`;
+  }
+  updateInfo();
+  // addAllToCart Button nur sichtbar wenn Artikel vorhanden
+  const addBtn=document.getElementById('addAllToCart');
+  if(addBtn){
+    const list=JSON.parse(localStorage.getItem('gw_wishlist')||'[]');
+    addBtn.style.display=list.length>0?'':'none';
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<meta name="description" content="gastrowerke Preisliste – Alle Produkte mit Preisen auf einen Blick. Netto- und Bruttopreise, Staffelpreise auf Anfrage.">
+<title>Preisliste – gastrowerke</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+.pl-controls{display:flex;align-items:center;gap:12px;margin-bottom:24px;flex-wrap:wrap}
+.pl-search{flex:1;min-width:200px;padding:10px 16px;border:1.5px solid var(--border);border-radius:var(--radius-xl);font-size:14px;font-family:inherit;outline:none;transition:border-color var(--trans-fast)}
+.pl-search:focus{border-color:var(--accent)}
+.pl-cat-select{padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--radius-xl);font-size:13px;font-family:inherit;background:var(--white);outline:none;cursor:pointer}
+.pl-vat-toggle{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-mid)}
+.pl-vat-toggle input{accent-color:var(--accent);width:15px;height:15px}
+.price-table{width:100%;border-collapse:collapse;background:var(--white);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-xs);border:1px solid var(--border-light)}
+.price-table thead tr{background:var(--primary);color:white}
+.price-table th{padding:14px 16px;text-align:left;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.price-table th:last-child,.price-table td:last-child{text-align:right}
+.price-table tbody tr{border-bottom:1px solid var(--border-light);transition:background var(--trans-fast)}
+.price-table tbody tr:last-child{border-bottom:none}
+.price-table tbody tr:hover{background:var(--accent-pale)}
+.price-table td{padding:14px 16px;font-size:14px;color:var(--text)}
+.pl-prod-cell{display:flex;align-items:center;gap:12px}
+.pl-prod-img{width:48px;height:48px;border-radius:var(--radius);overflow:hidden;background:#eef4f9;flex-shrink:0}
+.pl-prod-img img{width:100%;height:100%;object-fit:cover}
+.pl-prod-name{font-weight:600;color:var(--text);transition:color var(--trans-fast)}
+.pl-prod-name:hover{color:var(--accent)}
+.pl-prod-sku{font-size:11px;color:var(--text-muted)}
+.pl-cat-badge{font-size:11px;font-weight:600;padding:2px 8px;border-radius:50px;background:var(--accent-pale);color:var(--accent-deep)}
+.pl-price-net{font-weight:700;color:var(--text)}
+.pl-price-gross{font-weight:800;color:var(--accent-deep)}
+.pl-price-old{font-size:11px;color:var(--text-muted);text-decoration:line-through}
+.pl-badge-sale{font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;background:#e63946;color:white;margin-left:6px}
+.pl-badge-new{font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;background:var(--accent);color:white;margin-left:6px}
+.pl-add-btn{background:var(--accent);color:white;border:none;padding:7px 14px;border-radius:var(--radius-xl);font-size:12px;font-weight:600;transition:background var(--trans-fast);white-space:nowrap}
+.pl-add-btn:hover{background:var(--accent-deep)}
+.pl-info-strip{background:var(--accent-pale);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px 24px;margin-bottom:28px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.pl-info-strip span{font-size:13px;color:var(--text-mid)}
+.pl-info-strip strong{color:var(--text)}
+.pl-no-results{text-align:center;padding:48px;color:var(--text-muted);font-size:15px}
+@media(max-width:768px){.price-table th:nth-child(3),.price-table td:nth-child(3){display:none}.price-table th:nth-child(2),.price-table td:nth-child(2){display:none}}
+</style>
+</head>
+<body>
+
+<div id="gw-header-root"></div>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="container">
+    <nav class="breadcrumb">
+      <a href="index.html">Start</a><span>›</span><span>Preisliste</span>
+    </nav>
+    <h1 class="page-hero-title">Unsere <em>Preisliste</em></h1>
+    <p class="page-hero-sub">Alle Produkte mit aktuellen Preisen – netto und brutto. Staffelpreise auf Anfrage.</p>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+
+    <!-- INFO STRIP -->
+    <div class="pl-info-strip reveal">
+      <span>🔒 <strong>Alle Preise inkl. 19% MwSt.</strong> – Nettopreise werden durch Umschalten angezeigt.</span>
+      <span>🚚 <strong>Kostenloser Versand ab 100 €</strong> – darunter zzgl. 9,90 €</span>
+      <span>📋 <strong>Staffelpreise</strong> auf Anfrage unter info@gastrowerke.de</span>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="pl-controls reveal">
+      <input type="search" class="pl-search" id="plSearch" placeholder="Produkt oder Art.-Nr. suchen …">
+      <select class="pl-cat-select" id="plCatFilter">
+        <option value="">Alle Kategorien</option>
+      </select>
+      <label class="pl-vat-toggle">
+        <input type="checkbox" id="plNetToggle"> Nettopreise anzeigen
+      </label>
+    </div>
+
+    <!-- TABELLE -->
+    <div class="reveal" style="overflow-x:auto">
+      <table class="price-table" id="priceTable">
+        <thead>
+          <tr>
+            <th>Produkt</th>
+            <th>Kategorie</th>
+            <th>Art.-Nr.</th>
+            <th>Netto</th>
+            <th>Brutto</th>
+            <th>Aktion</th>
+          </tr>
+        </thead>
+        <tbody id="priceTableBody">
+          <tr><td colspan="6" class="pl-no-results">Produkte werden geladen …</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- HINWEIS -->
+    <div style="margin-top:24px;padding:16px 20px;background:var(--bg);border-radius:var(--radius);border:1px solid var(--border-light);font-size:13px;color:var(--text-muted)" class="reveal">
+      <strong>Preisänderungsvorbehalt:</strong> Alle Preise gelten zum Zeitpunkt der Bestellung und können sich ohne vorherige Ankündigung ändern. Irrtümer vorbehalten. Für Großbestellungen und B2B-Sonderkonditionen wenden Sie sich bitte an unseren Vertrieb.
+    </div>
+
+  </div>
+</section>
+
+<div id="gw-footer-root"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="supabase.js"></script>
+<script src="layout.js"></script>
+<script src="pages-common.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',async()=>{
+  const products=window._gwProducts||await(async()=>{const r=await fetch('products.json');return r.json();})();
+  window._gwProducts=products;
+
+  const fmt=(p,net)=>{
+    const v=net?p/1.19:p;
+    return v.toLocaleString('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
+  };
+
+  // Kategorien aufbauen
+  const cats=[...new Set(products.map(p=>p.category))];
+  const catSel=document.getElementById('plCatFilter');
+  cats.forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;catSel.appendChild(o);});
+
+  function render(){
+    const q=(document.getElementById('plSearch').value||'').toLowerCase().trim();
+    const cat=document.getElementById('plCatFilter').value;
+    const showNet=document.getElementById('plNetToggle').checked;
+
+    let list=products;
+    if(cat)list=list.filter(p=>p.category===cat);
+    if(q)list=list.filter(p=>p.name.toLowerCase().includes(q)||(p.sku||'').toLowerCase().includes(q)||(p.shortName||'').toLowerCase().includes(q));
+
+    const tbody=document.getElementById('priceTableBody');
+    if(list.length===0){
+      tbody.innerHTML='<tr><td colspan="6" class="pl-no-results">Keine Produkte gefunden.</td></tr>';
+      return;
+    }
+    tbody.innerHTML=list.map(p=>`
+      <tr>
+        <td>
+          <div class="pl-prod-cell">
+            <div class="pl-prod-img"><img src="${p.image}" alt="${p.name}" onerror="this.src='snowflake.svg'"></div>
+            <div>
+              <a href="produkt.html?slug=${p.slug}" class="pl-prod-name">${p.name}</a>
+              ${p.badge==='sale'?'<span class="pl-badge-sale">SALE</span>':''}
+              ${p.badge==='new'?'<span class="pl-badge-new">NEU</span>':''}
+              <div class="pl-prod-sku">${p.sku}</div>
+            </div>
+          </div>
+        </td>
+        <td><span class="pl-cat-badge">${p.category}</span></td>
+        <td style="font-size:12px;color:var(--text-muted)">${p.sku}</td>
+        <td class="pl-price-net">${fmt(p.price,true)}</td>
+        <td>
+          <div class="pl-price-gross">${fmt(p.price,false)}</div>
+          ${p.oldPrice?`<div class="pl-price-old">${fmt(p.oldPrice,false)}</div>`:''}
+        </td>
+        <td>
+          <button class="pl-add-btn" onclick="addToCartById(${p.id},this)">🛒 In den Korb</button>
+        </td>
+      </tr>`).join('');
+  }
+
+  render();
+  document.getElementById('plSearch').addEventListener('input',render);
+  document.getElementById('plCatFilter').addEventListener('change',render);
+  document.getElementById('plNetToggle').addEventListener('change',render);
+});
+</script>
+</body>
+</html>
