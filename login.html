@@ -10,7 +10,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <style>
-/* Gleiche Styles wie bisher – aus Platzgründen hier nur die Kern-Styles */
 .login-wrap{min-height:calc(100vh - var(--header-h) - 200px);display:flex;align-items:center;justify-content:center;padding:48px 20px}
 .login-box{width:100%;max-width:480px}
 .login-logo{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:.06em;color:var(--primary);text-align:center;margin-bottom:28px}
@@ -28,9 +27,8 @@
 .pw-toggle{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);font-size:16px;cursor:pointer}
 .error-banner{display:none;background:#fde8e8;border:1px solid #e63946;border-radius:var(--radius);padding:12px 16px;font-size:13px;color:#c0392b;margin-bottom:16px;border-left:4px solid #e63946}
 .success-banner{display:none;background:#d4f5ec;border:1px solid #2a9d8f;border-radius:var(--radius);padding:12px 16px;font-size:13px;color:#1a6b56;margin-bottom:16px}
-.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:white;border:none;padding:12px 26px;border-radius:var(--radius-xl);font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;transition:background var(--trans-fast)}
-.btn-primary:hover{background:var(--accent-deep)}
-.btn-primary:disabled{opacity:0.6;cursor:not-allowed}
+.login-switch{text-align:center;margin-top:24px;font-size:13px;color:var(--text-muted)}
+.login-switch a{color:var(--accent);text-decoration:underline}
 </style>
 </head>
 <body>
@@ -66,7 +64,7 @@
             <span class="form-error"></span>
           </div>
           <div style="text-align:right; margin-top:-10px; margin-bottom:16px">
-            <a href="reset-password.html" style="font-size:12px; color:var(--accent);">Passwort vergessen?</a>
+            <a href="reset-passwort.html" style="font-size:12px; color:var(--accent);">Passwort vergessen?</a>
           </div>
           <div class="form-check" style="margin-bottom:20px">
             <input type="checkbox" id="loginRemember">
@@ -244,7 +242,6 @@ document.getElementById('regForm').addEventListener('submit', async e => {
     btn.innerHTML = orig;
     btn.disabled = false;
   } else {
-    // Erfolgreich registriert und bereits eingeloggt
     showToast('Konto erfolgreich erstellt!');
     window.location.href = 'konto.html';
   }
